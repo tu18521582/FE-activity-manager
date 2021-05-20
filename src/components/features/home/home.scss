@@ -1,0 +1,12 @@
+.home {
+  &__counter {
+    background-color: #d9f1fb;
+    display: flex;
+    align-items: center;
+
+    &__value {
+      color: red;
+      margin: 0 10px;
+    }
+  }
+}

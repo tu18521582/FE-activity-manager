@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import App from 'components/App';
+import { makeServer } from 'mock-server/server';
 import reportWebVitals from './reportWebVitals';
+import './index.scss';
+
+if (process.env.NODE_ENV === 'development') {
+  makeServer({ environment: 'development' });
+}
 
 ReactDOM.render(
   <React.StrictMode>
