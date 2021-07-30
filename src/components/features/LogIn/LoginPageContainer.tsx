@@ -8,7 +8,7 @@ const LoginPageContainer = (props: any) => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
-    isCorrectAccount: true,
+    isHiddenErrorMessage: true,
   });
 
   const handleCancel = () => {
@@ -19,7 +19,7 @@ const LoginPageContainer = (props: any) => {
     setAccount({
       ...account,
       email: e.target.value,
-      isCorrectAccount: true,
+      isHiddenErrorMessage: true,
     });
   };
 
@@ -27,25 +27,22 @@ const LoginPageContainer = (props: any) => {
     setAccount({
       ...account,
       password: e.target.value,
-      isCorrectAccount: true,
+      isHiddenErrorMessage: true,
     });
   };
 
   const onHandleClick = () => {
-    // const user = userService.login(account);
-    // user.then()
     userService
       .login(account)
       .then((result) => {
         if (result == null) {
           setAccount({
             ...account,
-            isCorrectAccount: false,
+            isHiddenErrorMessage: false,
           });
         } else {
-          alert(`Login success, hello ${result.user.displayname}`);
+          props.handleLogin(result.user);
         }
-        console.log(result);
       })
       .catch((err) => {
         throw err;
@@ -73,7 +70,7 @@ const LoginPageContainer = (props: any) => {
           className="password-input"
           onChange={onChangePassword}
         />
-        {account.isCorrectAccount ? (
+        {account.isHiddenErrorMessage ? (
           ""
         ) : (
           <div className="error-message">Invalid email or password</div>

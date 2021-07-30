@@ -1,3 +1,18 @@
+@mixin buttonstyle() {
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  height: 40px;
+  margin-right: 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  &:hover {
+    color: black;
+    border-color: transparent;
+  }
+}
+
 .landing-page {
   height: 100%;
   width: 100%;
@@ -31,19 +46,18 @@
         font-size: 20px;
       }
       button {
-        background-color: transparent;
-        color: white;
-        font-size: 16px;
-        font-weight: 500;
-        height: 40px;
-        margin-right: 5px;
-        border: 1px solid white;
-        border-radius: 5px;
-        &:hover {
-          color: black;
-          border-color: transparent;
-        }
+        @include buttonstyle();
       }
+    }
+  }
+
+  &__welcome {
+    p {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+    button {
+      @include buttonstyle();
     }
   }
 }
