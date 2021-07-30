@@ -10,6 +10,7 @@
     "@types/node": "12.20.13",
     "@types/react": "17.0.6",
     "@types/react-dom": "17.0.5",
+    "antd": "^4.16.9",
     "axios": "0.21.1",
     "miragejs": "0.1.41",
     "node-sass": "6.0.0",

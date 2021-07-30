@@ -11,7 +11,7 @@ const initialState = {
 
 const appReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-    case 'INCREMENT':
+    case "INCREMENT":
       return { ...state, counter: state.counter + action.payload };
     default:
       return state;
