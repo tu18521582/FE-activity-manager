@@ -22,7 +22,25 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post(routePath.user.login, (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
-        return schema.users.findBy({ email: attrs.email, password: attrs.password });
+        return schema.users.findBy({
+          email: attrs.email,
+          password: attrs.password,
+        });
+      });
+
+      this.post(routePath.user.signup, (schema, request) => {
+        const newUser = JSON.parse(request.requestBody);
+        const testDistincUser = schema.users.findBy({
+          email: newUser.email,
+        });
+        if (testDistincUser === null) {
+          return schema.db.users.insert(newUser);
+        }
+        return null;
+      });
+
+      this.get(routePath.user.all, (schema) => {
+        return schema.users.all();
       });
 
       this.get(routePath.activity.all, (schema) => {

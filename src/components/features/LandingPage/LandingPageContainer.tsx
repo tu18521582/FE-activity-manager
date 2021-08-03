@@ -1,18 +1,13 @@
-import { Button } from "antd";
-import React, { Fragment, useState } from "react";
-import LoginPageContainer from "../LogIn/LoginPageContainer";
-import LandingPage from "./LandingPage";
-// username: 'user01', displayname: 'User 01', email: 'user01@mail.com', password: 'Kms@2021'
-// interface User {
-//   username: String;
-//   displayname: String;
-//   email: String;
-//   password: String;
-// }
+import { Button } from 'antd';
+import React, { Fragment, useState } from 'react';
+import LoginPageContainer from '../LogIn/LoginPageContainer';
+import RegisterPage from '../RegisterPage/RegisterPage';
+import LandingPage from './LandingPage';
 
 const LandingPageContainer = (props: any) => {
   const [state, setState] = useState({
     isModalVisible: false,
+    isRegisterFormVisible: false,
     userLogIn: {} as any,
   });
 
@@ -37,22 +32,40 @@ const LandingPageContainer = (props: any) => {
     });
   };
 
-  const onHandleClick = () => {
-    alert("This feature is updating");
+  const handleCancleRegisterForm = (val: any) => {
+    setState({
+      ...state,
+      isRegisterFormVisible: val,
+    });
   };
+
+  const showRegisterForm = () => {
+    setState({
+      ...state,
+      isRegisterFormVisible: true,
+    });
+  };
+
+  const handleRegisterSuccess = (isSuccess: any) => {
+    setState({
+      ...state,
+      isRegisterFormVisible: isSuccess,
+    });
+  };
+
   return (
     <Fragment>
       <LandingPage>
         {Object.keys(state.userLogIn).length === 0 ? (
-          <div className="landing-page__content__body">
+          <div className='landing-page__content__body'>
             <p>Welcome to ActivitiesManager</p>
             <Button onClick={showModal}>Login</Button>
-            <Button>Register</Button>
+            <Button onClick={showRegisterForm}>Register</Button>
           </div>
         ) : (
-          <div className="landing-page__welcome">
+          <div className='landing-page__welcome'>
             <p>{`Welcome back ${state.userLogIn.displayname}`}</p>
-            <Button onClick={onHandleClick}>Go to activities!</Button>
+            <Button>Go to activities!</Button>
           </div>
         )}
       </LandingPage>
@@ -60,6 +73,11 @@ const LandingPageContainer = (props: any) => {
         isModalVisibleProps={state.isModalVisible}
         handleCancel={handleCancel}
         handleLogin={handleLogin}
+      />
+      <RegisterPage
+        isRegisterFormVisible={state.isRegisterFormVisible}
+        handleCancleRegisterForm={handleCancleRegisterForm}
+        handleRegisterSuccess={handleRegisterSuccess}
       />
     </Fragment>
   );

@@ -4,6 +4,8 @@ const routePath = {
   },
   user: {
     login: '/user/login',
+    signup: '/user/signup',
+    all: '/user/all',
   },
   home: '/',
   welcomeReact: '/welcome-react',

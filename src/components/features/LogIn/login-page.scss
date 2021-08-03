@@ -1,6 +1,4 @@
-$height-input: 38px;
-$rounded-border: 5px;
-$color: #00b5ad;
+@import "assets/styles/variable-style";
 .modal-login {
   border-radius: $rounded-border;
   .title {
@@ -13,14 +11,11 @@ $color: #00b5ad;
     display: none;
   }
   .email-input {
-    height: $height-input;
-    margin-bottom: 10px;
-    border-radius: $rounded-border;
+    @include input-style();
   }
 
   .password-input {
-    height: $height-input;
-    border-radius: $rounded-border;
+    @include input-style();
   }
 
   .btn-login {
@@ -41,20 +36,9 @@ $color: #00b5ad;
   }
 
   .disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
+    @include button-disable();
   }
   .error-message {
-    margin-top: 10px;
-    padding: 14px 0px 34px 24px;
-    border: 1px solid;
-    height: $height-input;
-    color: #d8000c;
-    background-color: #ffbaba;
-    border-radius: $rounded-border;
+    @include error-message();
   }
 }
