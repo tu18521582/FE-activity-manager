@@ -3,6 +3,7 @@ $rounded-border: 5px;
 $color: #00b5ad;
 .modal-login {
   border-radius: $rounded-border;
+  width: 350px !important;
   .title {
     color: $color;
     text-align: center;
