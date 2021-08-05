@@ -1,11 +1,11 @@
 import { SHOW_LOGIN_MODAL, SHOW_REGISTER_MODAL } from 'constants/constant';
 
-export const showLoginModal = (boolean: Boolean) => ({
+export const showLoginModal = (isShowModal: Boolean) => ({
   type: SHOW_LOGIN_MODAL,
-  payload: boolean,
+  payload: isShowModal,
 });
 
-export const showRegisterModal = (boolean: Boolean) => ({
+export const showRegisterModal = (isShowModal: Boolean) => ({
   type: SHOW_REGISTER_MODAL,
-  payload: boolean,
+  payload: isShowModal,
 });

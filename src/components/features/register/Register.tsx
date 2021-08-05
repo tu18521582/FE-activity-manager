@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { Button, Input, message } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
 import { connect } from 'react-redux';
@@ -13,12 +14,7 @@ type RegisterProps = {
 };
 
 type RegisterState = {
-  infoUserRegister: {
-    username: String;
-    displayname: String;
-    email: String;
-    password: String;
-  };
+  infoUserRegister: UserRegisterInfo;
   errorMessage: String;
 };
 
@@ -74,17 +70,15 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }));
   };
 
-  onHandleClick = () => {
+  handleRegisterUser = () => {
     userService.signup(this.state.infoUserRegister).then((response) => {
       if (response === null) {
-        this.setState((state) => ({
-          ...state,
-          errorMessage: 'Email already exists',
-        }));
+        this.setState({ errorMessage: 'Email already exists' });
         return;
       }
       this.success();
       this.props.closeRegisterModal();
+      this.setState(initialState);
     });
   };
 
@@ -132,7 +126,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               !this.state.infoUserRegister.email.length ||
               !this.state.infoUserRegister.password.length,
           })}
-          onClick={this.onHandleClick}
+          onClick={this.handleRegisterUser}
         >
           Register
         </Button>

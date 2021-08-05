@@ -5,8 +5,11 @@ export interface UserInfo {
   email: String;
 }
 
-export interface UserInfoRS {
-  user: UserInfo;
+export interface UserRegisterInfo {
+  username: String;
+  displayname: String;
+  email: String;
+  password: String;
 }
 
 export interface ActionType {
