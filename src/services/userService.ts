@@ -1,3 +1,4 @@
+import { UserInfoRS } from 'constants/domain';
 import routePath from 'routes/routePath';
 import { requests } from './api';
 

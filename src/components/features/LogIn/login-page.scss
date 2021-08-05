@@ -1,7 +1,12 @@
-@import "assets/styles/variable-style";
+@import 'assets/styles/variable-style';
+$height-input: 38px;
+$rounded-border: 5px;
+$color: #00b5ad;
+
 .modal-login {
   border-radius: $rounded-border;
-  .title {
+  width: 350px !important;
+  &__title {
     color: $color;
     text-align: center;
     font-size: 23px;
@@ -18,7 +23,7 @@
     @include input-style();
   }
 
-  .btn-login {
+  &__btn-login {
     width: 100%;
     margin-top: 10px;
     border-radius: $rounded-border;

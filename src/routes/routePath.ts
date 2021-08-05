@@ -8,7 +8,6 @@ const routePath = {
     all: '/user/all',
   },
   home: '/',
-  welcomeReact: '/welcome-react',
 };
 
 export default routePath;
