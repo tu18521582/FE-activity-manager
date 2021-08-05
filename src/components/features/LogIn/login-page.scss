@@ -1,10 +1,11 @@
 $height-input: 38px;
 $rounded-border: 5px;
 $color: #00b5ad;
+
 .modal-login {
   border-radius: $rounded-border;
   width: 350px !important;
-  .title {
+  &__title {
     color: $color;
     text-align: center;
     font-size: 23px;
@@ -13,18 +14,18 @@ $color: #00b5ad;
   .ant-modal-close {
     display: none;
   }
-  .email-input {
+  &__email-input {
     height: $height-input;
     margin-bottom: 10px;
     border-radius: $rounded-border;
   }
 
-  .password-input {
+  &__password-input {
     height: $height-input;
     border-radius: $rounded-border;
   }
 
-  .btn-login {
+  &__btn-login {
     width: 100%;
     margin-top: 10px;
     border-radius: $rounded-border;
@@ -49,7 +50,7 @@ $color: #00b5ad;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-  .error-message {
+  &__error-message {
     margin-top: 10px;
     padding: 14px 0px 34px 24px;
     border: 1px solid;

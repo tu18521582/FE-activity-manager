@@ -1,6 +1,6 @@
-import './landing-page.scss';
-import logo from 'assets/images/logo-image.jpg';
 import { Button } from 'antd';
+import logo from 'assets/images/logo-image.jpg';
+import './landing-page.scss';
 
 const LandingPage = (props: any) => {
   return (

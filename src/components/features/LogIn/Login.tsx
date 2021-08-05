@@ -1,14 +1,14 @@
+import React, { Component } from 'react';
 import { Button, Input } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import { userService } from 'services';
-import './login-page.scss';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { UserInfo } from 'constants/domain';
-import { loginAction } from 'redux/actions';
 import cx from 'classnames';
-import { showLoginModal } from 'redux/actions/login.action';
+import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
+import { userService } from 'services';
+import { connect } from 'react-redux';
+import { showLoginModal } from 'redux/actions/modal.action';
+import { loginAction } from 'redux/actions';
+import './login-page.scss';
 
 interface LoginProps {
   isShowLoginModal: boolean;
@@ -33,10 +33,6 @@ export class Login extends Component<LoginProps, LoginState> {
   }
 
   render() {
-    const className = cx('btn-login', {
-      disabled: !this.state.account.email || !this.state.account.password,
-    });
-
     const onChangeEmail = (e: any) => {
       this.setState((prevState) => ({
         ...prevState,
@@ -77,43 +73,50 @@ export class Login extends Component<LoginProps, LoginState> {
           throw err;
         });
     };
-    console.log('state: ', this.props.getUserInfo);
-
     return (
-      <div className='login-page'>
-        <Modal
-          centered
-          className='modal-login'
-          title={<div className='title'>Login to ManagerActivities</div>}
-          visible={this.props.isShowLoginModal}
-          onCancel={this.props.closeLoginModal}
+      <Modal
+        centered
+        width={350}
+        className='modal-login'
+        title={
+          <div className='modal-login__title'>Login to ManagerActivities</div>
+        }
+        visible={this.props.isShowLoginModal}
+        onCancel={this.props.closeLoginModal}
+      >
+        <Input
+          placeholder='E-mail'
+          className='modal-login__email-input'
+          onChange={onChangeEmail}
+        />
+        <Input
+          type='password'
+          placeholder='Password'
+          className='modal-login__password-input'
+          onChange={onChangePassword}
+        />
+        {this.state.errorMessage && (
+          <div className='modal-login__error-message'>
+            {this.state.errorMessage}
+          </div>
+        )}
+        <Button
+          type='primary'
+          className={cx('modal-login__btn-login', {
+            disabled: !this.state.account.email || !this.state.account.password,
+          })}
+          onClick={handleOnClick}
         >
-          <Input
-            placeholder='E-mail'
-            className='email-input'
-            onChange={onChangeEmail}
-          />
-          <Input
-            type='password'
-            placeholder='Password'
-            className='password-input'
-            onChange={onChangePassword}
-          />
-          {this.state.errorMessage && (
-            <div className='error-message'>{this.state.errorMessage}</div>
-          )}
-          <Button type='primary' className={className} onClick={handleOnClick}>
-            Login
-          </Button>
-        </Modal>
-      </div>
+          Login
+        </Button>
+      </Modal>
     );
   }
 }
 
 const mapStateToProps = (state: any) => ({
-  isShowLoginModal: state.isShowLoginModal,
-  getUserInfo: state.userLoginInfo,
+  isShowLoginModal: state.modal.isShowLoginModal,
+  getUserInfo: state.login,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

@@ -1,18 +1,17 @@
-import { UserInfo } from 'constants/domain';
 import React from 'react';
+import { UserInfo } from 'constants/domain';
 import { connect } from 'react-redux';
-import { showLoginModal } from 'redux/actions/login.action';
-import Login from '../login/Login';
+import { showLoginModal } from 'redux/actions/modal.action';
 import LandingPage from './Landing';
+import Login from '../login/Login';
 
 interface LandingPageProps {
   handleShowLoginModal: VoidFunction;
   userInfo: UserInfo;
 }
 
-const LandingPageContainer = (props: LandingPageProps) => {
+const LandingContainer = (props: LandingPageProps) => {
   const { handleShowLoginModal } = props;
-
   return (
     <>
       <LandingPage
@@ -25,14 +24,11 @@ const LandingPageContainer = (props: LandingPageProps) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  userInfo: state.userLoginInfo,
+  userInfo: state.login,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   handleShowLoginModal: () => dispatch(showLoginModal(true)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LandingPageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LandingContainer);

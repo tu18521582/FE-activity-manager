@@ -8,3 +8,10 @@ export interface UserInfo {
 export interface UserInfoRS {
   user: UserInfo;
 }
+
+export interface ActionType {
+  type: string;
+  error?: any;
+  meta?: any;
+  payload?: any;
+}
