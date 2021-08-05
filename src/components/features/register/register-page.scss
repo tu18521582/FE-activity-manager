@@ -1,8 +1,8 @@
 @import 'assets/styles/variable-style';
 
 .modal-register {
-  border-radius: $rounded-border;
-  .title {
+  width: 400px !important;
+  &__title {
     color: $color;
     text-align: center;
     font-size: 23px;
@@ -26,7 +26,7 @@
     display: none;
   }
 
-  .btn-register {
+  &__btn-register {
     width: 100%;
     margin-top: 10px;
     border-radius: $rounded-border;
@@ -38,7 +38,7 @@
     @include button-disable();
   }
 
-  .error-message {
+  &__error-message {
     @include error-message();
     height: 60px;
     padding-top: 4px;
