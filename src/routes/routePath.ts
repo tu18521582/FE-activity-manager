@@ -6,7 +6,6 @@ const routePath = {
     login: '/user/login',
   },
   home: '/',
-  welcomeReact: '/welcome-react',
 };
 
 export default routePath;

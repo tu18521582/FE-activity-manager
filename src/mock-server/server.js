@@ -22,7 +22,10 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post(routePath.user.login, (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
-        return schema.users.findBy({ email: attrs.email, password: attrs.password });
+        return schema.users.findBy({
+          email: attrs.email,
+          password: attrs.password,
+        });
       });
 
       this.get(routePath.activity.all, (schema) => {
