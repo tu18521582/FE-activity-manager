@@ -2,23 +2,21 @@ import React from 'react';
 import { UserInfo } from 'constants/domain';
 import { connect } from 'react-redux';
 import { showLoginModal } from 'redux/actions/modal.action';
-import LandingPage from './Landing';
-import Login from '../login/Login';
+import Landing from './Landing';
 
-interface LandingPageProps {
+interface LandingContainerProps {
   handleShowLoginModal: VoidFunction;
   userInfo: UserInfo;
 }
 
-const LandingContainer = (props: LandingPageProps) => {
+const LandingContainer = (props: LandingContainerProps) => {
   const { handleShowLoginModal } = props;
   return (
     <>
-      <LandingPage
+      <Landing
         handleShowLoginModal={handleShowLoginModal}
         userInfo={props.userInfo}
       />
-      <Login />
     </>
   );
 };
