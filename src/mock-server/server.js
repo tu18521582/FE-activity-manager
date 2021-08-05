@@ -39,10 +39,6 @@ export function makeServer({ environment = 'test' } = {}) {
         return null;
       });
 
-      this.get(routePath.user.all, (schema) => {
-        return schema.users.all();
-      });
-
       this.get(routePath.activity.all, (schema) => {
         return schema.activities.all();
       });
