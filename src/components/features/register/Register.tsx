@@ -1,11 +1,10 @@
-import React from 'react';
+import { Button, Input, message, Modal } from 'antd';
 import cx from 'classnames';
-import { Button, Input, message } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import React from 'react';
+import { connect } from 'react-redux';
 import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
-import { connect } from 'react-redux';
 import './register-page.scss';
 
 type RegisterProps = {
@@ -34,52 +33,56 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     this.state = initialState;
   }
 
-  onChangeUsername = (e: any) => {
+  onChangeUsername = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        username: e.target.value,
+        username: (e.target as HTMLInputElement).value,
       },
     }));
   };
 
-  onChangeDisplayName = (e: any) => {
+  onChangeDisplayName = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        displayname: e.target.value,
+        displayname: (e.target as HTMLInputElement).value,
       },
     }));
   };
 
-  onChangeEmail = (e: any) => {
+  onChangeEmail = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        email: e.target.value,
+        email: (e.target as HTMLInputElement).value,
       },
     }));
   };
 
-  onChangePassword = (e: any) => {
+  onChangePassword = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        password: e.target.value,
+        password: (e.target as HTMLInputElement).value,
       },
     }));
   };
 
   handleRegisterUser = () => {
-    userService.signup(this.state.infoUserRegister).then((response) => {
-      if (response === null) {
-        this.setState({ errorMessage: 'Email already exists' });
-        return;
-      }
-      this.success();
-      this.props.closeRegisterModal();
-      this.setState(initialState);
-    });
+    try {
+      userService.signup(this.state.infoUserRegister).then((response) => {
+        if (response === null) {
+          this.setState({ errorMessage: 'Email already exists' });
+          return;
+        }
+        this.success();
+        this.props.closeRegisterModal();
+        this.setState(initialState);
+      });
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
   };
 
   success = () => {

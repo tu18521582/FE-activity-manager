@@ -1,4 +1,4 @@
-@mixin buttonstyle() {
+@mixin button-landing-style() {
   background-color: transparent;
   color: white;
   font-size: 16px;
@@ -34,30 +34,31 @@
     &__header {
       font-size: 45px;
       margin-bottom: 15px;
-      img {
+      &__logo {
         width: 7%;
         margin-right: 10px;
         margin-bottom: 15px;
       }
     }
     &__body {
-      p {
+      &__welcome-text {
         margin-bottom: 15px;
         font-size: 20px;
       }
-      button {
-        @include buttonstyle();
+      &__btn-login,
+      &__btn-register {
+        @include button-landing-style();
       }
     }
   }
 
   &__welcome {
-    p {
+    &__text {
       font-size: 25px;
       margin-bottom: 10px;
     }
-    button {
-      @include buttonstyle();
+    &__btn-redirect-activity {
+      @include button-landing-style();
     }
   }
 }

@@ -3,7 +3,7 @@
 .modal-register {
   width: 400px !important;
   &__title {
-    color: $color;
+    color: #06b6ae;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
@@ -14,7 +14,7 @@
   }
 
   input {
-    @include input-style();
+    @include input-text-style();
   }
 
   .ant-modal-header {
@@ -29,9 +29,9 @@
   &__btn-register {
     width: 100%;
     margin-top: 10px;
-    border-radius: $rounded-border;
-    height: $height-input;
-    background-color: $color;
+    border-radius: $rounded-border-input-text;
+    height: $height-input-text;
+    background-color: #06b6ae;
   }
 
   .disabled {

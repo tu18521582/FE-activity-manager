@@ -1,28 +1,27 @@
 @import 'assets/styles/variable-style';
 
 .modal-login {
-  border-radius: $rounded-border;
   width: 350px !important;
   &__title {
-    color: $color;
+    color: #06b6ae;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
   }
   &__email-input {
-    @include input-style();
+    @include input-text-style();
   }
 
   &__password-input {
-    @include input-style();
+    @include input-text-style();
   }
 
   &__btn-login {
     width: 100%;
     margin-top: 10px;
-    border-radius: $rounded-border;
-    height: $height-input;
-    background-color: $color;
+    border-radius: $rounded-border-input-text;
+    height: $height-input-text;
+    background-color: #06b6ae;
   }
 
   .ant-modal-header {

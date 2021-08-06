@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserInfo } from 'constants/domain';
 import { connect } from 'react-redux';
+import { UserInfo } from 'constants/domain';
 import { showLoginModal, showRegisterModal } from 'redux/actions/modal.action';
 import Landing from './Landing';
 

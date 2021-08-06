@@ -1,11 +1,10 @@
-$height-input: 38px;
-$rounded-border: 5px;
-$color: #06b6ae;
+$height-input-text: 38px;
+$rounded-border-input-text: 5px;
 
-@mixin input-style {
-  height: $height-input;
+@mixin input-text-style {
+  height: $height-input-text;
   margin-bottom: 10px !important;
-  border-radius: $rounded-border !important;
+  border-radius: $rounded-border-input-text !important;
 }
 
 @mixin error-message {
@@ -13,10 +12,10 @@ $color: #06b6ae;
   margin-top: 10px;
   padding: 14px 0px 34px 24px;
   border: 1px solid;
-  height: $height-input;
+  height: $height-input-text;
   color: #d8000c;
   background-color: #ffbaba;
-  border-radius: $rounded-border;
+  border-radius: $rounded-border-input-text;
 }
 
 @mixin button-disable {
