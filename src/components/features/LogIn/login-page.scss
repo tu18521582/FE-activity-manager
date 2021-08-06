@@ -1,36 +1,27 @@
-$height-input: 38px;
-$rounded-border: 5px;
-$color: #00b5ad;
+@import 'assets/styles/variable-style';
 
 .modal-login {
-  border-radius: $rounded-border;
   width: 350px !important;
   &__title {
-    color: $color;
+    color: #06b6ae;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
   }
-  .ant-modal-close {
-    display: none;
-  }
   &__email-input {
-    height: $height-input;
-    margin-bottom: 10px;
-    border-radius: $rounded-border;
+    @include input-text-style();
   }
 
   &__password-input {
-    height: $height-input;
-    border-radius: $rounded-border;
+    @include input-text-style();
   }
 
   &__btn-login {
     width: 100%;
     margin-top: 10px;
-    border-radius: $rounded-border;
-    height: $height-input;
-    background-color: $color;
+    border-radius: $rounded-border-input-text;
+    height: $height-input-text;
+    background-color: #06b6ae;
   }
 
   .ant-modal-header {
@@ -42,21 +33,15 @@ $color: #00b5ad;
     display: none;
   }
 
-  .disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
+  .ant-modal-close {
+    display: none;
   }
+
+  .disabled {
+    @include button-disable();
+  }
+
   &__error-message {
-    margin-top: 10px;
-    padding: 14px 0px 34px 24px;
-    border: 1px solid;
-    height: $height-input;
-    color: #d8000c;
-    background-color: #ffbaba;
-    border-radius: $rounded-border;
+    @include error-message();
   }
 }

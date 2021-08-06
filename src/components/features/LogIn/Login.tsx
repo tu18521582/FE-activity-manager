@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Button, Input } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { userService } from 'services';
-import { connect } from 'react-redux';
 import { showLoginModal } from 'redux/actions/modal.action';
 import { loginAction } from 'redux/actions';
 import './login-page.scss';
@@ -32,43 +31,44 @@ class Login extends Component<LoginProps, LoginState> {
     this.state = initialState;
   }
 
-  onChangeEmail = (e: any) => {
+  onChangeEmail = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       account: {
         ...prevState.account,
-        email: e.target.value,
+        email: (e.target as HTMLInputElement).value,
       },
       errorMessage: '',
     }));
   };
 
-  onChangePassword = (e: any) => {
+  onChangePassword = (e: React.SyntheticEvent) => {
     this.setState((prevState) => ({
       account: {
         ...prevState.account,
-        password: e.target.value,
+        password: (e.target as HTMLInputElement).value,
       },
       errorMessage: '',
     }));
   };
 
   handleOnClick = () => {
-    userService
-      .login(this.state.account)
-      .then((result) => {
+    try {
+      userService.login(this.state.account).then((result) => {
         if (result !== null) {
           //login success
-          this.props.setUserInfo(result.user as UserInfo);
+          this.props.setUserInfo(result.user);
+          this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/');
         } else {
           this.setState({ errorMessage: 'Invalid username or password' });
         }
-      })
-      .catch((err) => {
-        throw err;
       });
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
   };
   render() {
+    console.log(this.props.userInfo);
     return (
       <Modal
         centered

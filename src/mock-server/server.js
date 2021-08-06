@@ -28,6 +28,17 @@ export function makeServer({ environment = 'test' } = {}) {
         });
       });
 
+      this.post(routePath.user.signup, (schema, request) => {
+        const newUser = JSON.parse(request.requestBody);
+        const testDistincUser = schema.users.findBy({
+          email: newUser.email,
+        });
+        if (testDistincUser === null) {
+          return schema.db.users.insert(newUser);
+        }
+        return null;
+      });
+
       this.get(routePath.activity.all, (schema) => {
         return schema.activities.all();
       });
