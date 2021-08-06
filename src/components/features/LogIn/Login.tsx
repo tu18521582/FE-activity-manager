@@ -53,10 +53,11 @@ class Login extends Component<LoginProps, LoginState> {
 
   handleOnClick = () => {
     try {
-      userService.login({ asdsad: 'asdasd' }).then((result) => {
+      userService.login(this.state.account).then((result) => {
         if (result !== null) {
           //login success
-          this.props.setUserInfo(result.user as UserInfo);
+          this.props.setUserInfo(result.user);
+          this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/');
         } else {
           this.setState({ errorMessage: 'Invalid username or password' });
@@ -67,6 +68,7 @@ class Login extends Component<LoginProps, LoginState> {
     }
   };
   render() {
+    console.log(this.props.userInfo);
     return (
       <Modal
         centered

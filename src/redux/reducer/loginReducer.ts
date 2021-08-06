@@ -12,7 +12,7 @@ const initialState = {
 export default function login(state = initialState, action: ActionType) {
   switch (action.type) {
     case SET_USER_INFO:
-      return { ...state, state: action.payload };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
