@@ -1,7 +1,7 @@
 import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { userService } from 'services';
@@ -58,7 +58,7 @@ class Login extends Component<LoginProps, LoginState> {
           //login success
           this.props.setUserInfo(result.user);
           this.setState(initialState, () => this.props.closeLoginModal());
-          history.push('/');
+          history.push('/activities');
         } else {
           this.setState({ errorMessage: 'Invalid username or password' });
         }
@@ -68,7 +68,6 @@ class Login extends Component<LoginProps, LoginState> {
     }
   };
   render() {
-    console.log(this.props.userInfo);
     return (
       <Modal
         centered

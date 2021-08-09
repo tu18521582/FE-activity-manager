@@ -1,5 +1,6 @@
 const routePath = {
   activity: {
+    dashboard: '/activities',
     all: '/activity/all',
   },
   user: {

@@ -1,0 +1,88 @@
+.dashboard-header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #2a2a72;
+  background-image: linear-gradient(140deg, #2a2a72 0%, #009ffd 100%);
+  padding: 0px 150px;
+  width: 100%;
+  &__menu-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    :nth-child(-n + 2) {
+      border-right: none !important;
+    }
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 100%;
+      cursor: pointer;
+      border-left: 0.1px solid rgba(73, 113, 160, 0.5);
+      border-right: 0.1px solid rgba(73, 113, 160, 0.5);
+      &:active {
+        background-color: #2850bd;
+      }
+      &--width-decrease {
+        width: min-content;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      &__logo {
+        width: 15%;
+        margin-right: 10px;
+      }
+      &__text {
+        color: white;
+        font-size: 17px;
+        font-weight: 400;
+        &--bold {
+          font-weight: 600;
+        }
+      }
+      &__btn-create {
+        font-size: 15px;
+        font-weight: 400;
+        background-color: #21ba40;
+        border-color: #21ba40;
+        border-radius: 5px;
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: #21ba40 !important;
+          border-color: #21ba40 !important;
+        }
+      }
+    }
+  }
+  &__dropdown-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    border-left: 0.1px solid rgba(73, 113, 160, 0.5);
+    &__display-name {
+      margin-left: 8px;
+      color: honeydew;
+    }
+    .anticon-caret-down {
+      margin-left: 5px;
+      font-size: 12px;
+      color: white;
+    }
+    .ant-avatar-icon {
+      margin-left: 10px;
+    }
+  }
+}
+
+.ant-dropdown-menu-item {
+  font-size: 14px;
+  &__text {
+    margin-left: 8px;
+  }
+}

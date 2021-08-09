@@ -3,6 +3,7 @@ export interface UserInfo {
   displayname: String;
   id: String;
   email: String;
+  password: String;
 }
 
 export interface UserRegisterInfo {

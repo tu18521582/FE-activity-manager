@@ -1,7 +1,7 @@
 import { Button, Input, message, Modal } from 'antd';
 import cx from 'classnames';
-import React from 'react';
 import { connect } from 'react-redux';
+import React from 'react';
 import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
