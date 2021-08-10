@@ -1,25 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { UserInfo } from 'constants/domain';
-import history from 'helper/history';
-import { setUserInfo } from 'redux/actions/login.action';
-import Dashboard from './Dashboard';
 import withLogin, { withLoginProps } from '../../common/withLogin';
-interface DashboardContainerProps
-  extends RouteComponentProps<{}>,
-    withLoginProps {}
-
+import Dashboard from './Dashboard';
+interface DashboardContainerProps extends withLoginProps {}
 class DashboardContainer extends Component<DashboardContainerProps> {
   onHandleBackToLandingPage = () => {
-    history.push('/');
+    this.props.history.push('/');
   };
-
-  componentDidUpdate() {
-    if (this.props.userInfo.email === '') {
-      history.push('/');
-    }
-  }
   render() {
     return (
       <Dashboard
@@ -30,23 +16,4 @@ class DashboardContainer extends Component<DashboardContainerProps> {
     );
   }
 }
-
-const mapStateToProps = (state: any) => ({
-  userInfo: state.login,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-  handleLogoutProps: () =>
-    dispatch(
-      setUserInfo({
-        username: '',
-        displayname: '',
-        id: '',
-        email: '',
-        password: '',
-      })
-    ),
-});
-
-const HocComponent = withLogin(DashboardContainer);
-export default connect(mapStateToProps, mapDispatchToProps)(HocComponent);
+export default withLogin(DashboardContainer);

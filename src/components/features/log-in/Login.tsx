@@ -42,8 +42,6 @@ class Login extends Component<LoginProps, LoginState> {
   };
 
   onChangePassword = (e: React.SyntheticEvent) => {
-    // console.log('value', (e.currentTarget as HTMLInputElement).value); // ra value bình thường
-    // e.stopPropagation
     this.setState((prevState) => {
       return {
         account: {
@@ -53,9 +51,6 @@ class Login extends Component<LoginProps, LoginState> {
         errorMessage: '',
       };
     });
-
-    // const x = e.currentTarget as HTMLInputElement;
-    // console.log(x.value);
   };
 
   onCancelModal = () => {
