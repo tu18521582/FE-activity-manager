@@ -1,26 +1,19 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { setUserInfo } from 'redux/actions/login.action';
 import Dashboard from './Dashboard';
-
-interface DashboardContainerProps extends RouteComponentProps<{}> {
-  userInfo: UserInfo;
-  handleLogoutProps: VoidFunction;
-}
+import withLogin, { withLoginProps } from '../../common/withLogin';
+interface DashboardContainerProps
+  extends RouteComponentProps<{}>,
+    withLoginProps {}
 
 class DashboardContainer extends Component<DashboardContainerProps> {
   onHandleBackToLandingPage = () => {
     history.push('/');
   };
-
-  componentDidMount() {
-    if (this.props.userInfo.email === '') {
-      history.push('/');
-    }
-  }
 
   componentDidUpdate() {
     if (this.props.userInfo.email === '') {
@@ -55,4 +48,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
+const HocComponent = withLogin(DashboardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HocComponent);

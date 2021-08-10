@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { showLoginModal, showRegisterModal } from 'redux/actions/modal.action';

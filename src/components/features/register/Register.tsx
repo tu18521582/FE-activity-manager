@@ -1,7 +1,7 @@
+import React from 'react';
 import { Button, Input, message, Modal } from 'antd';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import React from 'react';
 import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
@@ -69,6 +69,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }));
   };
 
+  onCancelModal = () => {
+    this.setState(initialState, () => this.props.closeRegisterModal());
+  };
+
   handleRegisterUser = () => {
     try {
       userService.signup(this.state.infoUserRegister).then((response) => {
@@ -77,8 +81,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           return;
         }
         this.success();
-        this.props.closeRegisterModal();
-        this.setState(initialState);
+        this.onCancelModal();
       });
     } catch (err) {
       this.setState({ errorMessage: err.message });
@@ -101,7 +104,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           </div>
         }
         visible={this.props.isShowRegisterModal}
-        onCancel={this.props.closeRegisterModal}
+        onCancel={this.onCancelModal}
         footer={[]}
       >
         <Input placeholder='Username' onChange={this.onChangeUsername} />

@@ -1,10 +1,10 @@
+import React, { Component } from 'react';
 import { Avatar, Button, Dropdown, Menu } from 'antd';
 import {
   CaretDownOutlined,
   LogoutOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import React, { Component } from 'react';
 import { UserInfo } from 'constants/domain';
 import logo from 'assets/images/logo-image.jpg';
 import './dashboard-header.scss';
@@ -20,36 +20,27 @@ class Dashboard extends Component<DashboardProps> {
     return (
       <div className='dashboard-header'>
         <div className='dashboard-header__menu-area'>
-          <div className='dashboard-header__menu-area__item'>
-            <img
-              className='dashboard-header__menu-area__item__logo'
-              src={logo}
-              alt='logo'
-            />
+          <div className='dashboard-header__item'>
+            <img className='dashboard-header__logo' src={logo} alt='logo' />
             <span
-              className='dashboard-header__menu-area__item__text 
-            dashboard-header__menu-area__item__text--bold'
+              className='dashboard-header__text 
+            dashboard-header__text--bold'
               onClick={this.props.onHandleBackToLandingPageProps}
             >
               ActivitiesManager
             </span>
           </div>
           <div
-            className='dashboard-header__menu-area__item
-           dashboard-header__menu-area__item--width-decrease'
+            className='dashboard-header__item
+           dashboard-header__item--width-decrease'
           >
-            <span className='dashboard-header__menu-area__item__text'>
-              Activities
-            </span>
+            <span className='dashboard-header__text'>Activities</span>
           </div>
           <div
-            className='dashboard-header__menu-area__item 
-          dashboard-header__menu-area__item--width-decrease'
+            className='dashboard-header__item 
+          dashboard-header__item--width-decrease'
           >
-            <Button
-              className='dashboard-header__menu-area__item__btn-create'
-              type='primary'
-            >
+            <Button className='dashboard-header__btn-create' type='primary'>
               Create activity
             </Button>
           </div>

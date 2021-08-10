@@ -1,7 +1,7 @@
+import React, { Component } from 'react';
 import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { userService } from 'services';
@@ -42,13 +42,24 @@ class Login extends Component<LoginProps, LoginState> {
   };
 
   onChangePassword = (e: React.SyntheticEvent) => {
-    this.setState((prevState) => ({
-      account: {
-        ...prevState.account,
-        password: (e.target as HTMLInputElement).value,
-      },
-      errorMessage: '',
-    }));
+    // console.log('value', (e.currentTarget as HTMLInputElement).value); // ra value bình thường
+    // e.stopPropagation
+    this.setState((prevState) => {
+      return {
+        account: {
+          ...prevState.account,
+          password: (e.target as HTMLInputElement).value, // lỗi
+        },
+        errorMessage: '',
+      };
+    });
+
+    // const x = e.currentTarget as HTMLInputElement;
+    // console.log(x.value);
+  };
+
+  onCancelModal = () => {
+    this.setState(initialState, () => this.props.closeLoginModal());
   };
 
   handleOnClick = () => {
@@ -70,6 +81,7 @@ class Login extends Component<LoginProps, LoginState> {
   render() {
     return (
       <Modal
+        destroyOnClose
         centered
         width={350}
         className='modal-login'
@@ -77,7 +89,7 @@ class Login extends Component<LoginProps, LoginState> {
           <div className='modal-login__title'>Login to ManagerActivities</div>
         }
         visible={this.props.isShowLoginModal}
-        onCancel={this.props.closeLoginModal}
+        onCancel={this.onCancelModal}
       >
         <Input
           placeholder='E-mail'

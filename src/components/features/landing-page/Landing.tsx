@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { UserInfo } from 'constants/domain';
 import logo from 'assets/images/logo-image.jpg';
-import Login from '../login/Login';
+import Login from '../log-in/Login';
 import Register from '../register/Register';
 import './landing-page.scss';
 

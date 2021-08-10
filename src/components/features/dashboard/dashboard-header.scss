@@ -13,50 +13,53 @@
     :nth-child(-n + 2) {
       border-right: none !important;
     }
-    &__item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 200px;
-      height: 100%;
-      cursor: pointer;
-      border-left: 0.1px solid rgba(73, 113, 160, 0.5);
-      border-right: 0.1px solid rgba(73, 113, 160, 0.5);
-      &:active {
-        background-color: #2850bd;
-      }
-      &--width-decrease {
-        width: min-content;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-      &__logo {
-        width: 15%;
-        margin-right: 10px;
-      }
-      &__text {
-        color: white;
-        font-size: 17px;
-        font-weight: 400;
-        &--bold {
-          font-weight: 600;
-        }
-      }
-      &__btn-create {
-        font-size: 15px;
-        font-weight: 400;
-        background-color: #21ba40;
-        border-color: #21ba40;
-        border-radius: 5px;
-        &:hover,
-        &:focus,
-        &:active {
-          background-color: #21ba40 !important;
-          border-color: #21ba40 !important;
-        }
-      }
+  }
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100%;
+    cursor: pointer;
+    border-left: 0.1px solid rgba(73, 113, 160, 0.5);
+    border-right: 0.1px solid rgba(73, 113, 160, 0.5);
+    &:active {
+      background-color: #2850bd;
+    }
+    &--width-decrease {
+      width: min-content;
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
+
+  &__logo {
+    width: 15%;
+    margin-right: 10px;
+  }
+
+  &__text {
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    &--bold {
+      font-weight: 600;
+    }
+  }
+  &__btn-create {
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #21ba40;
+    border-color: #21ba40;
+    border-radius: 5px;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #21ba40 !important;
+      border-color: #21ba40 !important;
+    }
+  }
+
   &__dropdown-area {
     display: flex;
     justify-content: center;
