@@ -31,22 +31,24 @@ class Login extends Component<LoginProps, LoginState> {
     this.state = initialState;
   }
 
-  onChangeEmail = (e: React.SyntheticEvent) => {
+  onChangeEmail = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       account: {
         ...prevState.account,
-        email: (e.target as HTMLInputElement).value,
+        email: value,
       },
       errorMessage: '',
     }));
   };
 
-  onChangePassword = (e: React.SyntheticEvent) => {
+  onChangePassword = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => {
       return {
         account: {
           ...prevState.account,
-          password: (e.target as HTMLInputElement).value, // lỗi
+          password: value,
         },
         errorMessage: '',
       };
@@ -57,7 +59,7 @@ class Login extends Component<LoginProps, LoginState> {
     this.setState(initialState, () => this.props.closeLoginModal());
   };
 
-  handleOnClick = () => {
+  handleLogin = () => {
     try {
       userService.login(this.state.account).then((result) => {
         if (result !== null) {
@@ -107,7 +109,7 @@ class Login extends Component<LoginProps, LoginState> {
           className={cx('modal-login__btn-login', {
             disabled: !this.state.account.email || !this.state.account.password,
           })}
-          onClick={this.handleOnClick}
+          onClick={this.handleLogin}
         >
           Login
         </Button>

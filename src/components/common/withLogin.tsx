@@ -9,26 +9,27 @@ export interface withLoginProps extends RouteComponentProps {
 }
 const withLogin = (WrapComponent: any) => {
   class withLogin extends Component<withLoginProps> {
-    constructor(props: any) {
-      super(props);
-    }
     componentDidMount() {
       if (this.props.userInfo.email === '') {
         this.props.history.push('/');
       }
     }
+
     componentDidUpdate() {
       if (this.props.userInfo.email === '') {
         this.props.history.push('/');
       }
     }
+
     render() {
       return <WrapComponent {...this.props} />;
     }
   }
+
   const mapStateToProps = (state: any) => ({
     userInfo: state.login,
   });
+
   const mapDispatchToProps = (dispatch: any) => ({
     handleLogoutProps: () =>
       dispatch(
@@ -41,6 +42,8 @@ const withLogin = (WrapComponent: any) => {
         })
       ),
   });
+
   return connect(mapStateToProps, mapDispatchToProps)(withLogin);
 };
+
 export default withLogin;

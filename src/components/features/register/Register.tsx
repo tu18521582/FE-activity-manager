@@ -33,38 +33,42 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     this.state = initialState;
   }
 
-  onChangeUsername = (e: React.SyntheticEvent) => {
+  onChangeUsername = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        username: (e.target as HTMLInputElement).value,
+        username: value,
       },
     }));
   };
 
-  onChangeDisplayName = (e: React.SyntheticEvent) => {
+  onChangeDisplayName = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        displayname: (e.target as HTMLInputElement).value,
+        displayname: value,
       },
     }));
   };
 
-  onChangeEmail = (e: React.SyntheticEvent) => {
+  onChangeEmail = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        email: (e.target as HTMLInputElement).value,
+        email: value,
       },
     }));
   };
 
-  onChangePassword = (e: React.SyntheticEvent) => {
+  onChangePassword = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        password: (e.target as HTMLInputElement).value,
+        password: value,
       },
     }));
   };
