@@ -8,6 +8,12 @@ const Routes = [
       () => import('components/features/landing-page/LandingContainer')
     ),
   },
+  {
+    path: routePath.activity.dashboard,
+    component: lazy(
+      () => import('components/features/dashboard/DashboardContainer')
+    ),
+  },
 ];
 
 export default Routes;

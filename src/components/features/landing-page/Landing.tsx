@@ -1,13 +1,14 @@
 import { Button } from 'antd';
-import logo from 'assets/images/logo-image.jpg';
 import { UserInfo } from 'constants/domain';
-import Login from '../login/Login';
+import logo from 'assets/images/logo-image.jpg';
+import Login from '../log-in/Login';
 import Register from '../register/Register';
 import './landing-page.scss';
 
 interface LandingProps {
   handleShowLoginModal: VoidFunction;
   handleShowRegisterModal: VoidFunction;
+  onHandleGoToActivityProps: VoidFunction;
   userInfo: UserInfo;
 }
 
@@ -44,7 +45,10 @@ const Landing = (props: LandingProps) => {
         ) : (
           <div className='landing-page__welcome'>
             <p className='landing-page__welcome__text'>{`Welcome back ${props.userInfo.displayname}`}</p>
-            <Button className='landing-page__welcome__btn-redirect-activity'>
+            <Button
+              className='landing-page__welcome__btn-redirect-activity'
+              onClick={props.onHandleGoToActivityProps}
+            >
               Go to activities!
             </Button>
           </div>

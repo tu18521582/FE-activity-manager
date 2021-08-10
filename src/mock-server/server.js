@@ -1,6 +1,5 @@
 import { createServer, Model } from 'miragejs';
 import { AppConstant } from 'constants/index';
-import routePath from 'routes/routePath';
 import { fakeUsers, fakeActivities } from './data';
 
 export function makeServer({ environment = 'test' } = {}) {
@@ -20,7 +19,7 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = AppConstant.BASE_URL;
 
-      this.post(routePath.user.login, (schema, request) => {
+      this.post('/user/login', (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         return schema.users.findBy({
           email: attrs.email,
@@ -28,7 +27,7 @@ export function makeServer({ environment = 'test' } = {}) {
         });
       });
 
-      this.post(routePath.user.signup, (schema, request) => {
+      this.post('/user/signup', (schema, request) => {
         const newUser = JSON.parse(request.requestBody);
         const testDistincUser = schema.users.findBy({
           email: newUser.email,
@@ -39,7 +38,7 @@ export function makeServer({ environment = 'test' } = {}) {
         return null;
       });
 
-      this.get(routePath.activity.all, (schema) => {
+      this.get('/activity/all', (schema) => {
         return schema.activities.all();
       });
     },

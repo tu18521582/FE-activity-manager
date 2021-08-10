@@ -1,6 +1,6 @@
+import React, { Component } from 'react';
 import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
@@ -31,34 +31,42 @@ class Login extends Component<LoginProps, LoginState> {
     this.state = initialState;
   }
 
-  onChangeEmail = (e: React.SyntheticEvent) => {
+  onChangeEmail = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       account: {
         ...prevState.account,
-        email: (e.target as HTMLInputElement).value,
+        email: value,
       },
       errorMessage: '',
     }));
   };
 
-  onChangePassword = (e: React.SyntheticEvent) => {
-    this.setState((prevState) => ({
-      account: {
-        ...prevState.account,
-        password: (e.target as HTMLInputElement).value,
-      },
-      errorMessage: '',
-    }));
+  onChangePassword = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    this.setState((prevState) => {
+      return {
+        account: {
+          ...prevState.account,
+          password: value,
+        },
+        errorMessage: '',
+      };
+    });
   };
 
-  handleOnClick = () => {
+  onCancelModal = () => {
+    this.setState(initialState, () => this.props.closeLoginModal());
+  };
+
+  handleLogin = () => {
     try {
       userService.login(this.state.account).then((result) => {
         if (result !== null) {
           //login success
           this.props.setUserInfo(result.user);
           this.setState(initialState, () => this.props.closeLoginModal());
-          history.push('/');
+          history.push('/activities');
         } else {
           this.setState({ errorMessage: 'Invalid username or password' });
         }
@@ -68,9 +76,9 @@ class Login extends Component<LoginProps, LoginState> {
     }
   };
   render() {
-    console.log(this.props.userInfo);
     return (
       <Modal
+        destroyOnClose
         centered
         width={350}
         className='modal-login'
@@ -78,7 +86,7 @@ class Login extends Component<LoginProps, LoginState> {
           <div className='modal-login__title'>Login to ManagerActivities</div>
         }
         visible={this.props.isShowLoginModal}
-        onCancel={this.props.closeLoginModal}
+        onCancel={this.onCancelModal}
       >
         <Input
           placeholder='E-mail'
@@ -101,7 +109,7 @@ class Login extends Component<LoginProps, LoginState> {
           className={cx('modal-login__btn-login', {
             disabled: !this.state.account.email || !this.state.account.password,
           })}
-          onClick={this.handleOnClick}
+          onClick={this.handleLogin}
         >
           Login
         </Button>

@@ -1,6 +1,6 @@
+import React from 'react';
 import { Button, Input, message, Modal } from 'antd';
 import cx from 'classnames';
-import React from 'react';
 import { connect } from 'react-redux';
 import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
@@ -33,40 +33,48 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     this.state = initialState;
   }
 
-  onChangeUsername = (e: React.SyntheticEvent) => {
+  onChangeUsername = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        username: (e.target as HTMLInputElement).value,
+        username: value,
       },
     }));
   };
 
-  onChangeDisplayName = (e: React.SyntheticEvent) => {
+  onChangeDisplayName = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        displayname: (e.target as HTMLInputElement).value,
+        displayname: value,
       },
     }));
   };
 
-  onChangeEmail = (e: React.SyntheticEvent) => {
+  onChangeEmail = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        email: (e.target as HTMLInputElement).value,
+        email: value,
       },
     }));
   };
 
-  onChangePassword = (e: React.SyntheticEvent) => {
+  onChangePassword = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        password: (e.target as HTMLInputElement).value,
+        password: value,
       },
     }));
+  };
+
+  onCancelModal = () => {
+    this.setState(initialState, () => this.props.closeRegisterModal());
   };
 
   handleRegisterUser = () => {
@@ -77,8 +85,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           return;
         }
         this.success();
-        this.props.closeRegisterModal();
-        this.setState(initialState);
+        this.onCancelModal();
       });
     } catch (err) {
       this.setState({ errorMessage: err.message });
@@ -101,7 +108,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           </div>
         }
         visible={this.props.isShowRegisterModal}
-        onCancel={this.props.closeRegisterModal}
+        onCancel={this.onCancelModal}
         footer={[]}
       >
         <Input placeholder='Username' onChange={this.onChangeUsername} />
