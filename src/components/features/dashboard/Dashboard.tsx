@@ -13,6 +13,8 @@ interface DashboardProps {
   handleLogout: VoidFunction;
   onHandleBackToLandingPageProps: VoidFunction;
   userInfo: UserInfo;
+  onHandleToCreateActivity: VoidFunction;
+  onHandleToActivities: VoidFunction;
 }
 
 class Dashboard extends Component<DashboardProps> {
@@ -34,13 +36,22 @@ class Dashboard extends Component<DashboardProps> {
             className='dashboard-header__item
            dashboard-header__item--width-decrease'
           >
-            <span className='dashboard-header__text'>Activities</span>
+            <span
+              className='dashboard-header__text'
+              onClick={this.props.onHandleToActivities}
+            >
+              Activities
+            </span>
           </div>
           <div
             className='dashboard-header__item 
           dashboard-header__item--width-decrease'
           >
-            <Button className='dashboard-header__btn-create' type='primary'>
+            <Button
+              className='dashboard-header__btn-create'
+              type='primary'
+              onClick={this.props.onHandleToCreateActivity}
+            >
               Create activity
             </Button>
           </div>

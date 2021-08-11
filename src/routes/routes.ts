@@ -14,6 +14,12 @@ const Routes = [
       () => import('components/features/dashboard/DashboardContainer')
     ),
   },
+  {
+    path: routePath.activity.createActivity,
+    component: lazy(
+      () => import('components/features/create-activity/CreateActivity')
+    ),
+  },
 ];
 
 export default Routes;

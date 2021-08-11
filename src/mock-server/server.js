@@ -41,6 +41,11 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/activity/all', (schema) => {
         return schema.activities.all();
       });
+
+      this.post('/activity/new-activity', (schema, request) => {
+        const newActivity = JSON.parse(request.requestBody);
+        return schema.db.activities.insert(newActivity);
+      });
     },
   });
 
