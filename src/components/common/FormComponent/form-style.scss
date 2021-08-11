@@ -58,4 +58,8 @@
   &__select-input {
     border-radius: 5px;
   }
+
+  .disabled {
+    @include button-disable();
+  }
 }

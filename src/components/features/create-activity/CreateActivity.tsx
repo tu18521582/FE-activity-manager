@@ -12,7 +12,17 @@ class CreateActivity extends Component<RouteComponentProps> {
       ...value,
       id: uuidv4(),
     };
-    activityService.createActivity(newActivity);
+    try {
+      activityService.createActivity(newActivity).then((result) => {
+        if (result !== null) {
+          window.history.back();
+        } else {
+          alert('Create activity failed');
+        }
+      });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   render() {

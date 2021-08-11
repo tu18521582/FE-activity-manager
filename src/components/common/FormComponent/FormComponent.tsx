@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import cx from 'classnames';
 import { RouteComponentProps } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import LayoutContainer from 'components/common/Layout/LayoutContainer';
@@ -188,7 +189,20 @@ const FormComponent = (props: FormComponentProps) => {
             >
               Cancel
             </Button>
-            <Button type='primary' htmlType='submit'>
+            <Button
+              type='primary'
+              htmlType='submit'
+              className={cx('', {
+                disabled:
+                  !state.title ||
+                  !state.description ||
+                  !state.category ||
+                  !state.date ||
+                  !state.time ||
+                  !state.city ||
+                  !state.venue,
+              })}
+            >
               Submit
             </Button>
           </Form.Item>
