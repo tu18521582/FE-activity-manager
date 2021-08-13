@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import history from 'helper/history';
 import { activityService } from 'services';
-import FormComponent from 'components/common/FormComponent/FormComponent';
-import infoOfCreateActivity from 'components/common/FormComponent/FormComponent';
 import withDashboard from 'components/common/withDashboard';
-
-const { v4: uuidv4 } = require('uuid');
+import FormActivity, {
+  ActivityCreationInfo,
+} from 'components/common/FormActivity/FormActivity';
+import './create-activity.scss';
 class CreateActivity extends Component<RouteComponentProps> {
-  onHandleCreateActivity = (value: typeof infoOfCreateActivity) => {
+  onHandleCreateActivity = (value: ActivityCreationInfo) => {
     const newActivity = {
       ...value,
       id: uuidv4(),
@@ -15,7 +17,7 @@ class CreateActivity extends Component<RouteComponentProps> {
     try {
       activityService.createActivity(newActivity).then((result) => {
         if (result !== null) {
-          window.history.back();
+          history.push('/activities');
         } else {
           alert('Create activity failed');
         }
@@ -27,7 +29,7 @@ class CreateActivity extends Component<RouteComponentProps> {
 
   render() {
     return (
-      <FormComponent
+      <FormActivity
         {...this.props}
         onSubmitCreateActivityProps={this.onHandleCreateActivity}
       />

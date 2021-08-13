@@ -14,8 +14,11 @@ const withDashboard = (WrapComponent: any) => {
     render() {
       return (
         <>
-          <DashboardContainer {...this.props} />
-          <WrapComponent />
+          <DashboardContainer {...this.props}>
+            <div className='wrap-container'>
+              <WrapComponent />
+            </div>
+          </DashboardContainer>
         </>
       );
     }
