@@ -116,113 +116,111 @@ const ActivityForm = (props: ActivityFormProps) => {
   };
 
   return (
-    <>
-      <Form
-        className={'form-component'}
-        name='nest-messages'
-        validateMessages={validateMessages}
-        onFinish={onFinishSubmit}
+    <Form
+      className={'form-component'}
+      name='nest-messages'
+      validateMessages={validateMessages}
+      onFinish={onFinishSubmit}
+    >
+      <Form.Item name={'Title'} rules={[{ required: true }]}>
+        <Input placeholder='Title' onChange={onChangeTitle} />
+      </Form.Item>
+      <Form.Item
+        name={'Description'}
+        rules={[
+          {
+            required: true,
+            min: 5,
+            message: 'Description needs to be at least 5 characters',
+          },
+        ]}
+        className='form-component__textarea-description'
       >
-        <Form.Item name={'Title'} rules={[{ required: true }]}>
-          <Input placeholder='Title' onChange={onChangeTitle} />
-        </Form.Item>
+        <Input.TextArea
+          placeholder='Description'
+          onChange={onChangeDescription}
+        />
+      </Form.Item>
+      <Form.Item
+        name={'Category'}
+        rules={[{ required: true, message: 'Please select category!' }]}
+      >
+        <Select
+          placeholder='Category'
+          className='form-component__select-input'
+          size={'large'}
+          onChange={onChangeCategory}
+        >
+          <Select.Option value='drink'>Drink</Select.Option>
+          <Select.Option value='culture'>Culture</Select.Option>
+          <Select.Option value='film'>Film</Select.Option>
+          <Select.Option value='food'>Food</Select.Option>
+          <Select.Option value='music'>Music</Select.Option>
+          <Select.Option value='travel'>Travel</Select.Option>
+        </Select>
+      </Form.Item>
+      <Form.Item>
         <Form.Item
-          name={'Description'}
+          name={'date'}
+          className='form-component__date-picker'
           rules={[
             {
+              type: 'object' as const,
               required: true,
-              min: 5,
-              message: 'Description needs to be at least 5 characters',
+              message: 'Please select date!',
             },
           ]}
-          className='form-component__textarea-description'
         >
-          <Input.TextArea
-            placeholder='Description'
-            onChange={onChangeDescription}
-          />
+          <DatePicker onChange={onChangeDataPicker} />
         </Form.Item>
         <Form.Item
-          name={'Category'}
-          rules={[{ required: true, message: 'Please select category!' }]}
+          name={'time'}
+          rules={[
+            {
+              type: 'object' as const,
+              required: true,
+              message: 'Please select time!',
+            },
+          ]}
+          className={'form-component__time-picker'}
         >
-          <Select
-            placeholder='Category'
-            className='form-component__select-input'
-            size={'large'}
-            onChange={onChangeCategory}
-          >
-            <Select.Option value='drink'>Drink</Select.Option>
-            <Select.Option value='culture'>Culture</Select.Option>
-            <Select.Option value='film'>Film</Select.Option>
-            <Select.Option value='food'>Food</Select.Option>
-            <Select.Option value='music'>Music</Select.Option>
-            <Select.Option value='travel'>Travel</Select.Option>
-          </Select>
+          <TimePicker format={'HH:mm'} onChange={onChangeTimePicker} />
         </Form.Item>
-        <Form.Item>
-          <Form.Item
-            name={'date'}
-            className='form-component__date-picker'
-            rules={[
-              {
-                type: 'object' as const,
-                required: true,
-                message: 'Please select date!',
-              },
-            ]}
-          >
-            <DatePicker onChange={onChangeDataPicker} />
-          </Form.Item>
-          <Form.Item
-            name={'time'}
-            rules={[
-              {
-                type: 'object' as const,
-                required: true,
-                message: 'Please select time!',
-              },
-            ]}
-            className={'form-component__time-picker'}
-          >
-            <TimePicker format={'HH:mm'} onChange={onChangeTimePicker} />
-          </Form.Item>
-        </Form.Item>
-        <Form.Item name={'City'} rules={[{ required: true }]}>
-          <Input placeholder='City' onChange={onChangeCity} />
-        </Form.Item>
-        <Form.Item name={'Venue'} rules={[{ required: true }]}>
-          <Input placeholder='Venue' onChange={onChangeVenue} />
-        </Form.Item>
-        <Form.Item className={'form-component__btn'}>
-          <Button
-            htmlType='button'
-            type='default'
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            type='primary'
-            htmlType='submit'
-            className={cx('', {
-              disabled:
-                !state.title ||
-                !state.description ||
-                !state.category ||
-                !state.date ||
-                !state.time ||
-                !state.city ||
-                !state.venue,
-            })}
-          >
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
+      </Form.Item>
+      <Form.Item name={'City'} rules={[{ required: true }]}>
+        <Input placeholder='City' onChange={onChangeCity} />
+      </Form.Item>
+      <Form.Item name={'Venue'} rules={[{ required: true }]}>
+        <Input placeholder='Venue' onChange={onChangeVenue} />
+      </Form.Item>
+      <Form.Item className={'form-component__btn'}>
+        <Button
+          htmlType='button'
+          type='default'
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          type='primary'
+          htmlType='submit'
+          className={cx('', {
+            disabled:
+              !state.title ||
+              !state.description ||
+              !state.category ||
+              !state.date ||
+              !state.time ||
+              !state.city ||
+              !state.venue,
+          })}
+        >
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 

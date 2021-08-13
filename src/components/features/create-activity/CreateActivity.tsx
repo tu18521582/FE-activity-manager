@@ -7,9 +7,8 @@ import withDashboard from 'components/common/withDashboard';
 import ActivityForm, {
   ActivityCreationInfo,
 } from 'components/common/ActivityForm/ActivityForm';
-import './create-activity.scss';
 class CreateActivity extends Component<RouteComponentProps> {
-  onHandleCreateActivity = (value: ActivityCreationInfo) => {
+  handleCreateActivity = (value: ActivityCreationInfo) => {
     const newActivity = {
       ...value,
       id: uuidv4(),
@@ -31,7 +30,7 @@ class CreateActivity extends Component<RouteComponentProps> {
     return (
       <ActivityForm
         {...this.props}
-        onSubmitCreateActivityProps={this.onHandleCreateActivity}
+        onSubmitCreateActivityProps={this.handleCreateActivity}
       />
     );
   }
