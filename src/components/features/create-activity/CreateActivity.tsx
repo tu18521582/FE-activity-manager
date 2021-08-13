@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import history from 'helper/history';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
-import FormActivity, {
+import ActivityForm, {
   ActivityCreationInfo,
-} from 'components/common/FormActivity/FormActivity';
+} from 'components/common/ActivityForm/ActivityForm';
 import './create-activity.scss';
 class CreateActivity extends Component<RouteComponentProps> {
   onHandleCreateActivity = (value: ActivityCreationInfo) => {
@@ -29,7 +29,7 @@ class CreateActivity extends Component<RouteComponentProps> {
 
   render() {
     return (
-      <FormActivity
+      <ActivityForm
         {...this.props}
         onSubmitCreateActivityProps={this.onHandleCreateActivity}
       />

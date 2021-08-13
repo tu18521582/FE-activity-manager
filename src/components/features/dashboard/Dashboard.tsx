@@ -20,7 +20,7 @@ interface DashboardProps {
 class Dashboard extends Component<DashboardProps> {
   render() {
     return (
-      <>
+      <div className='dashboard'>
         <div className='dashboard-header'>
           <div className='dashboard-header__menu-area'>
             <div className='dashboard-header__item'>
@@ -93,8 +93,8 @@ class Dashboard extends Component<DashboardProps> {
             </Dropdown>
           </div>
         </div>
-        <div>{this.props.children}</div>
-      </>
+        <div className='dashboard-content'>{this.props.children}</div>
+      </div>
     );
   }
 }

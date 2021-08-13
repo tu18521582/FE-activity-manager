@@ -11,7 +11,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-interface FormActivityProps extends RouteComponentProps {
+interface ActivityFormProps extends RouteComponentProps {
   onSubmitCreateActivityProps: Function;
 }
 
@@ -35,7 +35,7 @@ const initialState: ActivityCreationInfo = {
   venue: '',
 };
 
-const FormActivity = (props: FormActivityProps) => {
+const ActivityForm = (props: ActivityFormProps) => {
   const [state, setState] = useState(initialState);
 
   const history = useHistory();
@@ -226,4 +226,4 @@ const FormActivity = (props: FormActivityProps) => {
   );
 };
 
-export default FormActivity;
+export default ActivityForm;
