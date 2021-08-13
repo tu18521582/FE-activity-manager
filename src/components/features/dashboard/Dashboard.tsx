@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { UserInfo } from 'constants/domain';
 import logo from 'assets/images/logo-image.jpg';
-import './dashboard-header.scss';
+import './dashboard.scss';
 
 interface DashboardProps {
   handleLogout: VoidFunction;
