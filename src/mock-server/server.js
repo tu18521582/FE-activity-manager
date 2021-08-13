@@ -38,8 +38,13 @@ export function makeServer({ environment = 'test' } = {}) {
         return null;
       });
 
-      this.get('/activity/all', (schema) => {
+      this.get('/activities', (schema) => {
         return schema.activities.all();
+      });
+
+      this.post('/activities', (schema, request) => {
+        const newActivity = JSON.parse(request.requestBody);
+        return schema.db.activities.insert(newActivity);
       });
     },
   });

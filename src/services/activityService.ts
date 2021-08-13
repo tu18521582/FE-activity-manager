@@ -1,7 +1,8 @@
 import { requests } from './api';
 
 const activityService = {
-  allActivities: () => requests.get('/activity/all'),
+  allActivities: () => requests.get('/activities'),
+  createActivity: (activity: any) => requests.post('/activities', activity),
 };
 
 export default activityService;
