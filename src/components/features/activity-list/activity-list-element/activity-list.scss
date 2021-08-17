@@ -1,10 +1,6 @@
-.ant-row {
-  background-color: #eaeaea;
-  padding-bottom: 30px;
-}
-
 .activity-item {
-  padding-top: 30px;
+  margin-top: 30px;
+  zoom: 0.9;
   .ant-card-body {
     padding: 0px;
   }
@@ -16,7 +12,7 @@
     margin-bottom: 10px;
   }
   &__card-activity {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   &__header-activity {
     display: flex;
@@ -37,6 +33,22 @@
     &__person-host {
       color: blue;
     }
+    &__label-host {
+      margin-top: 5px;
+      border: 1px solid orange;
+      border-radius: 3px;
+      font-size: 14px;
+      padding: 5px;
+      color: orange;
+    }
+    &__label-joiner {
+      margin-top: 5px;
+      border: 1px solid #3ca956;
+      border-radius: 3px;
+      font-size: 14px;
+      padding: 5px;
+      color: #3ca956;
+    }
   }
 
   &__time-place-activity {
@@ -53,12 +65,17 @@
     background-color: #f3f4f5;
     border-bottom: 1px solid #e8e8e9;
     &__item {
-      margin-right: 10px;
+      margin-right: 15px;
     }
   }
   &__footer {
     padding: 10px 20px;
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+    &__description {
+      font-weight: 400;
+    }
     &__btn-view {
       border-radius: 5px;
       width: 70px;
@@ -68,7 +85,8 @@
 
 .activity-filter {
   margin-left: 30px;
-  margin-top: 71px;
+  margin-top: 65px;
+  zoom: 0.9;
   .anticon {
     margin-right: 8px;
   }
@@ -79,7 +97,7 @@
   }
   &__title {
     border: 1px solid #e8e8e9;
-    padding: 10px;
+    padding: 0px 20px;
     font-size: 18px;
     color: #00b5ad;
     background-color: white;
@@ -91,8 +109,12 @@
   }
 
   &__calendar {
-    width: 345px;
+    width: 400px;
     border: 1px solid #f0f0f0;
     border-radius: 2px;
   }
+}
+
+.ant-tooltip-arrow {
+  display: none;
 }

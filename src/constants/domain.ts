@@ -19,3 +19,29 @@ export interface ActionType {
   meta?: any;
   payload?: any;
 }
+
+export interface ActivityInfo {
+  id: string;
+  title: string;
+  creator: string;
+  idcreator: string;
+  description: string;
+  category: string;
+  date: string;
+  time: string;
+  venue: string;
+  city: string;
+}
+
+export interface FollowInfo {
+  id: string;
+  id_user: string;
+  id_post_follow: string;
+}
+
+export interface ParticipantInfo {
+  id: string;
+  id_post: string;
+  id_follower: string;
+  displayname: string;
+}

@@ -1,4 +1,7 @@
 .activity-container {
   display: flex;
   background-color: #eaeaea;
+  &__list {
+    width: 700px;
+  }
 }

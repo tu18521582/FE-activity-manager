@@ -1,7 +1,7 @@
-import { Calendar } from 'antd';
 import React, { Component } from 'react';
-import './activity-list.scss';
+import { Calendar } from 'antd';
 import { FilterOutlined, CalendarOutlined } from '@ant-design/icons';
+import './activity-list.scss';
 class ActivityFilter extends Component {
   render() {
     return (
