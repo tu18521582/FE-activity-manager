@@ -2,7 +2,26 @@ import React, { Component } from 'react';
 import { Calendar } from 'antd';
 import { FilterOutlined, CalendarOutlined } from '@ant-design/icons';
 import './activity-list.scss';
-class ActivityFilter extends Component {
+
+interface ActivityFilterProps {
+  onHandleParentFilterActivities: Function;
+  onHadleParentFilterByDate: Function;
+}
+class ActivityFilter extends Component<ActivityFilterProps> {
+  showAllActivities = () => {
+    this.props.onHandleParentFilterActivities('all');
+  };
+
+  showActivitiesUserJoin = () => {
+    this.props.onHandleParentFilterActivities('going');
+  };
+
+  showActivitiesUserHost = () => {
+    this.props.onHandleParentFilterActivities('host');
+  };
+  onChangeCalendar = (date: any) => {
+    this.props.onHadleParentFilterByDate(date.format('YYYY-MM-DD').toString());
+  };
   render() {
     return (
       <>
@@ -12,16 +31,31 @@ class ActivityFilter extends Component {
               <FilterOutlined />
               Filters
             </div>
-            <div className='activity-filter__item-filter'>All activities</div>
-            <div className='activity-filter__item-filter'>I'm going</div>
-            <div className='activity-filter__item-filter'>I'm hoisting</div>
+            <div
+              className='activity-filter__item-filter'
+              onClick={this.showAllActivities}
+            >
+              All activities
+            </div>
+            <div
+              className='activity-filter__item-filter'
+              onClick={this.showActivitiesUserJoin}
+            >
+              I'm going
+            </div>
+            <div
+              className='activity-filter__item-filter'
+              onClick={this.showActivitiesUserHost}
+            >
+              I'm hosting
+            </div>
           </div>
           <div className='activity-filter__calendar'>
             <div className='activity-filter__title'>
               <CalendarOutlined />
               Select Date
             </div>
-            <Calendar fullscreen={false} />
+            <Calendar fullscreen={false} onChange={this.onChangeCalendar} />
           </div>
         </div>
       </>

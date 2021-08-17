@@ -39,8 +39,6 @@ class CreateActivity extends Component<
   };
 
   render() {
-    console.log(this.props.userInfo.displayname);
-
     return (
       <ActivityForm
         {...this.props}
