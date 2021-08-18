@@ -30,14 +30,10 @@ class ActivityListContainer extends Component<
   componentDidMount() {
     try {
       activityService.getActivitySummary().then((result) => {
-        this.setState(
-          {
-            activitySummary: result,
-          },
-          () => {
-            this.totalActivities = this.state.activitySummary;
-          }
-        );
+        this.totalActivities = result;
+        this.setState({
+          activitySummary: result,
+        });
       });
     } catch (error) {
       alert(error.message);
