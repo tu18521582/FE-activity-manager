@@ -11,8 +11,7 @@ interface ActivityListProps {
   onHandleFilterByDate: Function;
 }
 
-interface ActivityListState {}
-class ActivityList extends Component<ActivityListProps, ActivityListState> {
+class ActivityList extends Component<ActivityListProps> {
   onHandleParentFilterActivities = (typeFilter: string) => {
     this.props.onHandleFilterActivities(typeFilter);
   };
@@ -24,15 +23,13 @@ class ActivityList extends Component<ActivityListProps, ActivityListState> {
     return (
       <div className='activity-container'>
         <div className='activity-container__list'>
-          {this.props.activities?.map(
-            (element: ActivitySummary, index: number) => (
-              <ActivityItem
-                key={index}
-                activityItemData={element}
-                userInfo={this.props.userInfo}
-              />
-            )
-          )}
+          {this.props.activities?.map((element: ActivitySummary) => (
+            <ActivityItem
+              key={element.id}
+              activityItemData={element}
+              userInfo={this.props.userInfo}
+            />
+          ))}
         </div>
         <div className='activity-container__filter'>
           <ActivityFilter

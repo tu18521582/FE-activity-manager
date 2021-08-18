@@ -1,16 +1,16 @@
 export interface UserInfo {
-  username: String;
-  displayname: String;
-  id: String;
-  email: String;
-  password: String;
+  username: string;
+  displayname: string;
+  id: string;
+  email: string;
+  password: string;
 }
 
 export interface UserRegisterInfo {
-  username: String;
-  displayname: String;
-  email: String;
-  password: String;
+  username: string;
+  displayname: string;
+  email: string;
+  password: string;
 }
 
 export interface ActionType {

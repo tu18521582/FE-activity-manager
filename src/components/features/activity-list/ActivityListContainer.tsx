@@ -29,9 +29,12 @@ class ActivityListContainer extends Component<
 
   componentDidMount() {
     activityService.getActivitySummary().then((result) => {
-      this.totalActivities = result;
+      let sortedResult = result.sort(
+        (a, b) => Date.parse(a.date) - Date.parse(b.date)
+      );
+      this.totalActivities = sortedResult;
       this.setState({
-        activitySummary: result,
+        activitySummary: sortedResult,
       });
     });
   }
@@ -73,13 +76,12 @@ class ActivityListContainer extends Component<
     });
   };
 
+  componentDidUpdate = () => {};
   render() {
     return (
       <ActivityList
         userInfo={this.props.userInfo}
-        activities={this.state.activitySummary.sort(
-          (a, b) => Date.parse(a.date) - Date.parse(b.date)
-        )}
+        activities={this.state.activitySummary}
         onHandleFilterActivities={this.onHandleFilterActivities}
         onHandleFilterByDate={this.onHandleFilterByDate}
       />

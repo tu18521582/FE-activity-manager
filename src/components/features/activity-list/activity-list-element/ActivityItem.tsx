@@ -75,16 +75,14 @@ class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
                 icon={<UserOutlined />}
               />
             </Tooltip>
-            {this.props.activityItemData?.userList?.map(
-              (user, index: number) => (
-                <Tooltip title={user.displayname} key={index}>
-                  <Avatar
-                    className='activity-item__followers-info__item'
-                    icon={<UserOutlined />}
-                  />
-                </Tooltip>
-              )
-            )}
+            {this.props.activityItemData?.userList?.map((user) => (
+              <Tooltip title={user.displayname} key={user.id}>
+                <Avatar
+                  className='activity-item__followers-info__item'
+                  icon={<UserOutlined />}
+                />
+              </Tooltip>
+            ))}
           </div>
           <div className='activity-item__footer'>
             <div className='activity-item__footer__description'>
