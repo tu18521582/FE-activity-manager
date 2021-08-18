@@ -28,16 +28,12 @@ class ActivityListContainer extends Component<
   }
 
   componentDidMount() {
-    try {
-      activityService.getActivitySummary().then((result) => {
-        this.totalActivities = result;
-        this.setState({
-          activitySummary: result,
-        });
+    activityService.getActivitySummary().then((result) => {
+      this.totalActivities = result;
+      this.setState({
+        activitySummary: result,
       });
-    } catch (error) {
-      alert(error.message);
-    }
+    });
   }
 
   onHandleFilterActivities = (typeFilter: string) => {
