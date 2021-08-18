@@ -5,12 +5,11 @@ import {
   ClockCircleOutlined,
   EnvironmentFilled,
 } from '@ant-design/icons';
-import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, UserInfo } from 'constants/domain';
 import './activity-list.scss';
 
 interface ActivityItemProps {
   activityItemData: ActivitySummary;
-  followInfo: Array<FollowInfo>;
   userInfo: UserInfo;
 }
 
@@ -43,11 +42,9 @@ class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
               ) : (
                 ''
               )}
-
-              {this.props.followInfo.filter(
-                (element: FollowInfo) =>
-                  element.id_post_follow === this.props.activityItemData.id
-              )[0]?.id ? (
+              {this.props.activityItemData.userList?.some(
+                (user) => user.id === this.props.userInfo.id
+              ) ? (
                 <p className='activity-item__info-header__label-joiner'>
                   You are going to this activity
                 </p>

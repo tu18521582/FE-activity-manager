@@ -12,28 +12,17 @@ const activityService = {
     let listUserInfo: any = [];
     let userInfoMap = new Map();
 
-    try {
-      await activityService.allActivities().then((result) => {
-        activitySummary = result.activities;
-      });
-    } catch (error) {
-      alert(error);
-    }
-    try {
-      await activityService.followInfo().then((result) => {
-        listFollowInfo = result.followinfos;
-      });
-    } catch (error) {
-      alert(error);
-    }
+    await activityService.allActivities().then((result) => {
+      activitySummary = result.activities;
+    });
+    await activityService.followInfo().then((result) => {
+      listFollowInfo = result.followinfos;
+    });
 
-    try {
-      await userService.getAllUsers().then((result) => {
-        listUserInfo = result.users;
-      });
-    } catch (error) {
-      alert(error);
-    }
+    await userService.getAllUsers().then((result) => {
+      listUserInfo = result.users;
+    });
+
     listFollowInfo.forEach((followItem: any) => {
       listUserInfo.forEach((user: any) => {
         if (user.id === followItem.id_user) {
@@ -45,7 +34,7 @@ const activityService = {
     });
     activitySummary.forEach((element: any) => {
       if (userInfoMap.get(element.id)) {
-        element['userList'] = userInfoMap.get(element.id);
+        element['userList'] = userInfoMap.get(element.id) || [];
       }
     });
 

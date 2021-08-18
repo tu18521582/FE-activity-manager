@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, UserInfo } from 'constants/domain';
 import ActivityFilter from './activity-list-element/ActivityFilter';
 import ActivityItem from './activity-list-element/ActivityItem';
 import './activity-list-layout.scss';
 
 interface ActivityListProps {
   activities: Array<ActivitySummary>;
-  followInfo: Array<FollowInfo>;
   userInfo: UserInfo;
   onHandleFilterActivities: Function;
   onHandleFilterByDate: Function;
@@ -31,7 +30,6 @@ class ActivityList extends Component<ActivityListProps, ActivityListState> {
                 key={index}
                 activityItemData={element}
                 userInfo={this.props.userInfo}
-                followInfo={this.props.followInfo}
               />
             )
           )}
