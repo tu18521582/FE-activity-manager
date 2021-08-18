@@ -50,13 +50,5 @@ export interface ActivitySummary {
   time: string;
   venue: string;
   city: string;
-  userList: UserInfo[];
-}
-
-//xoa
-export interface ParticipantInfo {
-  id: string;
-  id_post: string;
-  id_follower: string;
-  displayname: string;
+  userList: Array<UserInfo>;
 }

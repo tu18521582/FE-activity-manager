@@ -5,18 +5,12 @@ import {
   ClockCircleOutlined,
   EnvironmentFilled,
 } from '@ant-design/icons';
-import {
-  ActivityInfo,
-  FollowInfo,
-  ParticipantInfo,
-  UserInfo,
-} from 'constants/domain';
+import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
 import './activity-list.scss';
 
 interface ActivityItemProps {
-  activityItemData: ActivityInfo;
+  activityItemData: ActivitySummary;
   followInfo: Array<FollowInfo>;
-  participantInfo: Array<ParticipantInfo>;
   userInfo: UserInfo;
 }
 
@@ -42,7 +36,7 @@ class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
                 </span>
               </p>
               {this.props.userInfo.id ===
-              this.props.activityItemData.idcreator ? (
+              this.props.activityItemData?.idcreator ? (
                 <p className='activity-item__info-header__label-host'>
                   You are hosting this activity
                 </p>
@@ -84,20 +78,16 @@ class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
                 icon={<UserOutlined />}
               />
             </Tooltip>
-            {this.props.participantInfo
-              .filter(
-                (element: ParticipantInfo) =>
-                  element.id_post === this.props.activityItemData.id
-              )
-              .map((element: ParticipantInfo, index: number) => (
-                <Tooltip title={element?.displayname}>
+            {this.props.activityItemData?.userList?.map(
+              (user, index: number) => (
+                <Tooltip title={user.displayname} key={index}>
                   <Avatar
-                    key={index}
                     className='activity-item__followers-info__item'
                     icon={<UserOutlined />}
                   />
                 </Tooltip>
-              ))}
+              )
+            )}
           </div>
           <div className='activity-item__footer'>
             <div className='activity-item__footer__description'>

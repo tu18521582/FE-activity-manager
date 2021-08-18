@@ -69,16 +69,3 @@ export const fakeFollowTable = [
     id_post_follow: '3',
   },
 ];
-
-export const fakeParticipantTable = [
-  {
-    id_post: '1',
-    id_follower: '2',
-    displayname: 'User 02',
-  },
-  {
-    id_post: '1',
-    id_follower: '3',
-    displayname: 'User 03',
-  },
-];

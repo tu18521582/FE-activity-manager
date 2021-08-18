@@ -1,11 +1,6 @@
 import { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import {
-  ActivityInfo,
-  FollowInfo,
-  ParticipantInfo,
-  UserInfo,
-} from 'constants/domain';
+import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
 import ActivityList from './ActivityList';
@@ -15,46 +10,45 @@ interface ActivityListContainerProps extends RouteComponentProps {
 }
 
 interface ActivityListContainerState {
-  activities: Array<ActivityInfo>;
+  activitySummary: Array<ActivitySummary>;
   followInfo: Array<FollowInfo>;
-  participantInfo: Array<ParticipantInfo>;
-  filterType: string;
-  filterDate: string;
 }
 
 const initialState: ActivityListContainerState = {
-  activities: [],
+  activitySummary: [],
   followInfo: [],
-  participantInfo: [],
-  filterType: 'all',
-  filterDate: new Date().toISOString().slice(0, 10),
 };
 class ActivityListContainer extends Component<
   ActivityListContainerProps,
   ActivityListContainerState
 > {
-  totalActivities: ActivityInfo[] = [];
+  totalActivities: ActivitySummary[] = [];
 
   constructor(props: ActivityListContainerProps) {
     super(props);
     this.state = initialState;
   }
-  componentDidMount() {
+
+  getActivitySummaryAPI = async () => {
     try {
-      activityService.allActivities().then((result) => {
+      await activityService.getActivitySummary().then((result) => {
         this.setState(
           {
-            activities: [...this.state.activities, ...result.activities],
+            activitySummary: result,
           },
           () => {
-            this.totalActivities = this.state.activities;
+            this.totalActivities = this.state.activitySummary;
+            this.forceUpdate();
           }
         );
       });
     } catch (error) {
       alert(error.message);
     }
+  };
 
+  componentDidMount() {
+    this.getActivitySummaryAPI();
     try {
       activityService.followInfo().then((result) => {
         const resultFilter = result.followinfos.filter(
@@ -67,76 +61,51 @@ class ActivityListContainer extends Component<
     } catch (error) {
       alert(error.message);
     }
-
-    try {
-      activityService.participantInfo().then((result) => {
-        this.setState({
-          participantInfo: [
-            ...this.state.participantInfo,
-            ...result.participants,
-          ],
-        });
-      });
-    } catch (error) {
-      alert(error.message);
-    }
   }
 
   onHandleFilterActivities = (typeFilter: string) => {
-    this.setState(
-      {
-        filterType: typeFilter,
-      },
-      () => {
-        //on click host
-        if (this.state.filterType === 'host') {
-          this.totalActivities = this.state.activities.filter(
-            (activity) => activity.idcreator === this.props.userInfo.id
-          );
+    //on click host
+    if (typeFilter === 'host') {
+      this.totalActivities = this.state.activitySummary.filter(
+        (activity) => activity.idcreator === this.props.userInfo.id
+      );
+    }
+    //on click going
+    else if (typeFilter === 'going') {
+      let tempArray: any = [];
+      const postsLoggedUserJoin = this.state.followInfo.filter(
+        (ele) => ele.id_user === this.props.userInfo.id
+      );
+      postsLoggedUserJoin.forEach((postInfo) => {
+        const activity: any = this.state.activitySummary.find(
+          (activity) => activity.id === postInfo.id_post_follow
+        );
+        if (activity) {
+          tempArray.push(activity);
         }
-        //on click going
-        else if (this.state.filterType === 'going') {
-          let tempArray: any = [];
-          const postsLoggedUserJoin = this.state.followInfo.filter(
-            (ele) => ele.id_user === this.props.userInfo.id
-          );
-          postsLoggedUserJoin.forEach((postInfo) => {
-            const activity: any = this.state.activities.find(
-              (activity) => activity.id === postInfo.id_post_follow
-            );
-            if (activity) {
-              tempArray.push(activity);
-            }
-          });
-          this.totalActivities = tempArray;
-        }
-        //default
-        else {
-          this.totalActivities = this.state.activities;
-        }
-      }
-    );
+      });
+      this.totalActivities = tempArray;
+    }
+    //default
+    else {
+      this.totalActivities = this.state.activitySummary;
+    }
+    this.forceUpdate();
   };
 
   onHandleFilterByDate = (date: string) => {
-    this.setState(
-      {
-        filterDate: date,
-      },
-      () => {
-        console.log(date);
-        this.totalActivities = this.state.activities.filter(
-          (activity) => Date.parse(activity.date) >= Date.parse(date)
-        );
-      }
+    this.totalActivities = this.state.activitySummary.filter(
+      (activity) => Date.parse(activity.date) >= Date.parse(date)
     );
+    this.forceUpdate();
   };
+
   render() {
     return (
       <ActivityList
-        activityData={this.state}
+        followInfo={this.state.followInfo}
         userInfo={this.props.userInfo}
-        activities={this.totalActivities.sort(
+        activities={this.totalActivities?.sort(
           (a, b) => Date.parse(a.date) - Date.parse(b.date)
         )}
         onHandleFilterActivities={this.onHandleFilterActivities}
