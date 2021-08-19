@@ -6,6 +6,7 @@ const activityService = {
   allActivities: () => requests.get('/activities'),
   createActivity: (activity: any) => requests.post('/activities', activity),
   followInfo: () => requests.get('/follow'),
+  insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
   getActivitySummary: async () => {
     let activitySummary: ActivitySummary[] = [];
     let listFollowInfo: any = [];
@@ -26,9 +27,10 @@ const activityService = {
     listFollowInfo.forEach((followItem: any) => {
       listUserInfo.forEach((user: any) => {
         if (user.id === followItem.id_user) {
-          const userArray = userInfoMap.get(followItem.id_post_follow) || [];
+          const userArray =
+            userInfoMap.get(followItem.id_activity_follow) || [];
           userArray.push(user);
-          userInfoMap.set(followItem.id_post_follow, userArray);
+          userInfoMap.set(followItem.id_activity_follow, userArray);
         }
       });
     });
@@ -40,6 +42,8 @@ const activityService = {
 
     return activitySummary;
   },
+  getDetailActivity: (id: string) => requests.get(`/activities/${id}`),
+  cancelJoinActivity: (id: string) => requests.del(`/follow/${id}`),
 };
 
 export default activityService;

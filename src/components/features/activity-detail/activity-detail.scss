@@ -1,5 +1,5 @@
 .activity-detail {
-  max-width: 700px;
+  max-width: 650px;
   margin-top: 50px;
   &__header-info {
     border: 1px solid #eeeeee;
@@ -18,12 +18,27 @@
     font-size: 24px;
   }
   &__name {
-    color: rgb(110, 98, 189);
+    color: rgb(7, 22, 230);
   }
+
+  &__btn-event {
+    width: 100%;
+    height: 55px;
+    padding: 5px 15px;
+  }
+
   &__btn-manage {
-    left: 80%;
-    margin: 15px 0;
-    border-radius: 5px;
+    float: right;
+    margin-top: 7px;
+    .ant-btn-primary {
+      background: orange;
+      border-color: orange;
+    }
+  }
+
+  &__btn-join {
+    float: left;
+    margin-top: 7px;
   }
 
   &__body-info {
@@ -65,11 +80,6 @@
       align-items: center;
     }
   }
-
-  // &__commenter {
-  // }
-  // &__text {
-  // }
   &__name-commenter {
     font-weight: bold;
     font-size: 14px;
@@ -86,7 +96,7 @@
     font-size: 25px;
     color: white;
     margin-right: 10px;
-    background-color: steelblue;
+    background-color: rgb(187, 54, 65);
   }
   .ant-input {
     height: 60px;

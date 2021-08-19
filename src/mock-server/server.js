@@ -56,6 +56,21 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/follow', (schema) => {
         return schema.followinfos.all();
       });
+
+      this.post('/follow', (schema, request) => {
+        const newFollowInfo = JSON.parse(request.requestBody);
+        return schema.db.followinfos.insert(newFollowInfo);
+      });
+
+      this.del('/follow/:id', (schema, request) => {
+        let id = request.params.id;
+        schema.followinfos.find(id).destroy();
+      });
+
+      this.get('/activities/:id', (schema, request) => {
+        let id = request.params.id;
+        return schema.db.activities.find(id);
+      });
     },
   });
 

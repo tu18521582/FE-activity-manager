@@ -7,39 +7,82 @@ import {
   UserOutlined,
   FormOutlined,
 } from '@ant-design/icons';
+import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
 import './activity-detail.scss';
-class ActivityDetail extends Component {
+
+interface ActivityDetailProps {
+  activityProps: ActivityInfo;
+  followByLoggingUser: Array<FollowInfo>;
+  userInfo: UserInfo;
+  isLoggingUserHost: boolean;
+  onClickButtonJoinProps: Function;
+  onClickButtonCancelProps: Function;
+}
+class ActivityDetail extends Component<ActivityDetailProps> {
+  onClickButtonJoin = () => {
+    this.props.onClickButtonJoinProps();
+  };
+
+  onClickButtonCancel = () => {
+    this.props.onClickButtonCancelProps();
+  };
   render() {
     return (
       <div className='activity-detail'>
         <div className='activity-detail__header-info'>
           <div className='activity-detail__top-background'>
-            <span className='activity-detail__title'>Future Activity 1</span>
-            <p className='activity-detail__date-time'>Saturday 19th June</p>
+            <span className='activity-detail__title'>
+              {this.props.activityProps?.title}
+            </span>
+            <p className='activity-detail__date-time'>
+              {this.props.activityProps?.date}
+            </p>
             <p className='activity-detail__creator'>
-              Host by <span className='activity-detail__name'>Jane</span>
+              Host by{' '}
+              <span className='activity-detail__name'>
+                {this.props.activityProps?.creator}
+              </span>
             </p>
           </div>
-          <Button type='primary' className='activity-detail__btn-manage'>
-            Manage Event
-          </Button>
+
+          <div className='activity-detail__btn-event'>
+            {this.props.isLoggingUserHost ? (
+              <div className='activity-detail__btn-manage'>
+                <Button type='primary'>Manage Event</Button>
+              </div>
+            ) : this.props.followByLoggingUser.find(
+                (ele) => ele.id_activity_follow === this.props.activityProps.id
+              ) ? (
+              <div className='activity-detail__btn-join'>
+                <Button type='dashed' onClick={this.onClickButtonCancel}>
+                  Cancel activity
+                </Button>
+              </div>
+            ) : (
+              <div className='activity-detail__btn-join'>
+                <Button type='primary' onClick={this.onClickButtonJoin}>
+                  Join attendance
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
         <div className='activity-detail__body-info'>
           <div className='activity-detail__body-info__item'>
             <InfoCircleOutlined className='activity-detail__icon' />
-            <span>Act1 by user1</span>
+            <span>{this.props.activityProps.description}</span>
           </div>
           <div className='activity-detail__body-info__item'>
             <CalendarOutlined className='activity-detail__icon' />
             <span>
-              <span>Saturday 19th June at</span>
-              <span>9:17 PM</span>
+              <span>{`${this.props.activityProps.date} at `}</span>
+              <span>{this.props.activityProps.time}</span>
             </span>
           </div>
           <div className='activity-detail__body-info__item'>
             <EnvironmentFilled className='activity-detail__icon' />
-            <span>Wembly Stadium, </span>
-            <span>London</span>
+            <span>{`${this.props.activityProps.venue}, `}</span>
+            <span>{this.props.activityProps.city}</span>
           </div>
         </div>
         <div className='activity-detail__chat'>
