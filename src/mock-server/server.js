@@ -1,6 +1,6 @@
 import { createServer, Model } from 'miragejs';
 import { AppConstant } from 'constants/index';
-import { fakeUsers, fakeActivities } from './data';
+import { fakeUsers, fakeActivities, fakeFollowTable } from './data';
 
 export function makeServer({ environment = 'test' } = {}) {
   const server = createServer({
@@ -9,11 +9,13 @@ export function makeServer({ environment = 'test' } = {}) {
     models: {
       user: Model,
       activity: Model,
+      followinfo: Model,
     },
 
     seeds(server) {
       fakeUsers.forEach((item) => server.create('user', item));
       fakeActivities.forEach((item) => server.create('activity', item));
+      fakeFollowTable.forEach((item) => server.schema.followinfos.create(item));
     },
 
     routes() {
@@ -38,6 +40,10 @@ export function makeServer({ environment = 'test' } = {}) {
         return null;
       });
 
+      this.get('/users', (schema) => {
+        return schema.users.all();
+      });
+
       this.get('/activities', (schema) => {
         return schema.activities.all();
       });
@@ -45,6 +51,10 @@ export function makeServer({ environment = 'test' } = {}) {
       this.post('/activities', (schema, request) => {
         const newActivity = JSON.parse(request.requestBody);
         return schema.db.activities.insert(newActivity);
+      });
+
+      this.get('/follow', (schema) => {
+        return schema.followinfos.all();
       });
     },
   });

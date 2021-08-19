@@ -11,7 +11,7 @@ const Routes = [
   {
     path: routePath.activity.dashboard,
     component: lazy(
-      () => import('components/features/dashboard/DashboardContainer')
+      () => import('components/features/activity-list/ActivityListContainer')
     ),
   },
   {
