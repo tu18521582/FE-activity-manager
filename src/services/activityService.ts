@@ -5,6 +5,8 @@ import userService from './userService';
 const activityService = {
   allActivities: () => requests.get('/activities'),
   createActivity: (activity: any) => requests.post('/activities', activity),
+  updateActivity: (activity: any) =>
+    requests.put(`/activities/${activity.id}`, activity),
   followInfo: () => requests.get('/follow'),
   insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
   getActivitySummary: async () => {

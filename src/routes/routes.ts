@@ -27,6 +27,12 @@ const Routes = [
         import('components/features/activity-detail/ActivityDetailContainer')
     ),
   },
+  {
+    path: routePath.activity.updateActivity,
+    component: lazy(
+      () => import('components/features/update-activity/UpdateActivity')
+    ),
+  },
 ];
 
 export default Routes;

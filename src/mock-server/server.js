@@ -71,6 +71,13 @@ export function makeServer({ environment = 'test' } = {}) {
         let id = request.params.id;
         return schema.db.activities.find(id);
       });
+
+      this.put('/activities/:id', (schema, request) => {
+        let newAttrs = JSON.parse(request.requestBody);
+        delete newAttrs['id'];
+        let id = request.params.id;
+        return schema.db.activities.update(id, newAttrs);
+      });
     },
   });
 

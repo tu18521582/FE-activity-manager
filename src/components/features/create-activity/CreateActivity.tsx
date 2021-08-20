@@ -42,7 +42,8 @@ class CreateActivity extends Component<
     return (
       <ActivityForm
         {...this.props}
-        onSubmitCreateActivityProps={this.handleCreateActivity}
+        dataForm={{}}
+        onSubmitActivityProps={this.handleCreateActivity}
       />
     );
   }

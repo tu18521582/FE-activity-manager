@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import cx from 'classnames';
 import { RouteComponentProps } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import './form-style.scss';
+import { ActivityInfo } from 'constants/domain';
+import moment from 'moment';
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -12,7 +14,8 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 interface ActivityFormProps extends RouteComponentProps {
-  onSubmitCreateActivityProps: Function;
+  onSubmitActivityProps: Function;
+  dataForm: any;
 }
 
 export interface ActivityCreationInfo {
@@ -34,9 +37,9 @@ const initialState: ActivityCreationInfo = {
   city: '',
   venue: '',
 };
-
 const ActivityForm = (props: ActivityFormProps) => {
   const [state, setState] = useState(initialState);
+  const [form] = Form.useForm();
 
   const history = useHistory();
 
@@ -112,21 +115,42 @@ const ActivityForm = (props: ActivityFormProps) => {
   );
 
   const onFinishSubmit = () => {
-    props.onSubmitCreateActivityProps(state);
+    props.onSubmitActivityProps(state);
   };
 
+  let initialValuesForm = {} as any;
+  const [, updateState] = React.useState({});
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  useEffect(() => {
+    if (props.dataForm.id) {
+      form.setFieldsValue({
+        title: props.dataForm?.title,
+        description: props.dataForm?.description,
+        category: props.dataForm?.category,
+        date: moment(props.dataForm?.date, 'YYYY-MM-DD'),
+        time: moment(props.dataForm?.time, 'HH:mm'),
+        city: props.dataForm?.city,
+        venue: props.dataForm?.venue,
+      });
+    }
+    setState(props.dataForm);
+  }, [props.dataForm]);
   return (
     <Form
+      form={form}
       className={'form-component'}
       name='nest-messages'
       validateMessages={validateMessages}
       onFinish={onFinishSubmit}
+      initialValues={{
+        title: props.dataForm?.title,
+      }}
     >
-      <Form.Item name={'Title'} rules={[{ required: true }]}>
+      <Form.Item name={'title'} rules={[{ required: true }]}>
         <Input placeholder='Title' onChange={onChangeTitle} />
       </Form.Item>
       <Form.Item
-        name={'Description'}
+        name={'description'}
         rules={[
           {
             required: true,
@@ -139,10 +163,11 @@ const ActivityForm = (props: ActivityFormProps) => {
         <Input.TextArea
           placeholder='Description'
           onChange={onChangeDescription}
+          value={props.dataForm?.description}
         />
       </Form.Item>
       <Form.Item
-        name={'Category'}
+        name={'category'}
         rules={[{ required: true, message: 'Please select category!' }]}
       >
         <Select
@@ -187,10 +212,10 @@ const ActivityForm = (props: ActivityFormProps) => {
           <TimePicker format={'HH:mm'} onChange={onChangeTimePicker} />
         </Form.Item>
       </Form.Item>
-      <Form.Item name={'City'} rules={[{ required: true }]}>
+      <Form.Item name={'city'} rules={[{ required: true }]}>
         <Input placeholder='City' onChange={onChangeCity} />
       </Form.Item>
-      <Form.Item name={'Venue'} rules={[{ required: true }]}>
+      <Form.Item name={'venue'} rules={[{ required: true }]}>
         <Input placeholder='Venue' onChange={onChangeVenue} />
       </Form.Item>
       <Form.Item className={'form-component__btn'}>

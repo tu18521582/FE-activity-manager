@@ -5,6 +5,7 @@ import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
 import ActivityDetail from './ActivityDetail';
+import history from 'helper/history';
 
 interface ActivityDetailContainerState {
   activityIsViewing: ActivityInfo;
@@ -85,9 +86,14 @@ class ActivityDetailContainer extends Component<
     activityService.cancelJoinActivity(idFollowInfoCurrent);
     this.getAllFollowInfo();
   };
+
+  handleClickButtonManage = () => {
+    history.push(`/manage/${this.idActivityIsViewing}`);
+  };
   render() {
     return (
       <ActivityDetail
+        onClickButtonManageProps={this.handleClickButtonManage}
         activityProps={this.state.activityIsViewing}
         followByLoggingUser={this.state.followByLoggingUser}
         userInfo={this.props.userInfo}
