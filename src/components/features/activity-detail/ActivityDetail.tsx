@@ -14,7 +14,7 @@ interface ActivityDetailProps {
   activityIsViewing: ActivityInfo;
   userInfo: UserInfo;
   isLoggingUserHost: boolean;
-  idActCurrentFollowByUser: string;
+  isFollowByLoggedUser: boolean;
   onClickButtonJoin: Function;
   onClickButtonCancel: Function;
   onClickButtonManage: Function;
@@ -49,7 +49,7 @@ class ActivityDetail extends Component<ActivityDetailProps> {
                   Manage Event
                 </Button>
               </div>
-            ) : this.props.idActCurrentFollowByUser ? (
+            ) : this.props.isFollowByLoggedUser ? (
               <div className='activity-detail__btn-join'>
                 <Button
                   type='dashed'

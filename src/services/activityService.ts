@@ -8,20 +8,10 @@ const activityService = {
   updateActivity: (activity: any) =>
     requests.put(`/activities/${activity.id}`, activity),
   followInfo: () => requests.get('/follow'),
-  getFollowInfoByIdAct: async (idActivity: string) => {
-    let listFollowInfo: any = [];
-
-    await activityService.followInfo().then((result) => {
-      listFollowInfo = result.followinfos;
-    });
-
-    let followInfoOfAct = listFollowInfo.filter(
-      (ele: any) => ele.idActivityFollow === idActivity
-    );
-
-    return followInfoOfAct;
-  },
-
+  getFollowInfoByAttr: (folloInfoAttr: any) =>
+    requests.get(
+      `/follow/user/${folloInfoAttr.idUser}/activity/${folloInfoAttr.idActivityFollow}`
+    ),
   insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
   getActivitySummary: async () => {
     let activitySummary: ActivitySummary[] = [];

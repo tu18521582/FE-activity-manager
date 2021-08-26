@@ -67,6 +67,18 @@ export function makeServer({ environment = 'test' } = {}) {
         schema.followinfos.find(id).destroy();
       });
 
+      this.get(
+        '/follow/user/:iduser/activity/:idactivity',
+        (schema, request) => {
+          let idUser = request.params.iduser;
+          let idActivity = request.params.idactivity;
+          return schema.followinfos.findBy({
+            idUser: idUser,
+            idActivityFollow: idActivity,
+          });
+        }
+      );
+
       this.get('/activities/:id', (schema, request) => {
         let id = request.params.id;
         return schema.db.activities.find(id);

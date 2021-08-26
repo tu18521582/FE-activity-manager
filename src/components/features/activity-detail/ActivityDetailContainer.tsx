@@ -9,8 +9,9 @@ import ActivityDetail from './ActivityDetail';
 
 interface ActivityDetailContainerState {
   activityIsViewing: ActivityInfo;
-  idActCurrentFollowByUser: string;
+  followInfo: FollowInfo;
   isLoggingUserHost: boolean;
+  isFollowByLoggedUser: boolean;
 }
 
 interface ActivityDetailContainerProps extends RouteComponentProps {
@@ -32,6 +33,12 @@ const initialState = {
   },
   idActCurrentFollowByUser: '',
   isLoggingUserHost: false,
+  isFollowByLoggedUser: false,
+  followInfo: {
+    id: '',
+    idUser: '',
+    idActivityFollow: '',
+  },
 };
 class ActivityDetailContainer extends Component<
   ActivityDetailContainerProps,
@@ -44,16 +51,18 @@ class ActivityDetailContainer extends Component<
 
   idActivityIsViewing = (this.props.match.params as any).id;
   updateFollowInfo = () => {
-    activityService
-      .getFollowInfoByIdAct(this.idActivityIsViewing)
-      .then((result) => {
-        let followInfoCurrent = result.find(
-          (element: FollowInfo) => element.idUser === this.props.userInfo.id
-        );
+    const attrRequest = {
+      idUser: this.props.userInfo.id,
+      idActivityFollow: this.idActivityIsViewing,
+    };
+    activityService.getFollowInfoByAttr(attrRequest).then((result) => {
+      if (result) {
         this.setState({
-          idActCurrentFollowByUser: followInfoCurrent?.id,
+          followInfo: result.followinfo,
+          isFollowByLoggedUser: result !== null,
         });
-      });
+      }
+    });
   };
   componentDidMount = () => {
     activityService
@@ -78,8 +87,16 @@ class ActivityDetailContainer extends Component<
   };
 
   handleClickButtonCancel = () => {
-    activityService.cancelJoinActivity(this.state.idActCurrentFollowByUser);
-    this.updateFollowInfo();
+    activityService.cancelJoinActivity(this.state.followInfo.id).then(() => {
+      this.setState({
+        isFollowByLoggedUser: false,
+        followInfo: {
+          id: '',
+          idUser: '',
+          idActivityFollow: '',
+        },
+      });
+    });
   };
 
   handleClickButtonManage = () => {
@@ -90,7 +107,7 @@ class ActivityDetailContainer extends Component<
       <ActivityDetail
         onClickButtonManage={this.handleClickButtonManage}
         activityIsViewing={this.state.activityIsViewing}
-        idActCurrentFollowByUser={this.state.idActCurrentFollowByUser}
+        isFollowByLoggedUser={this.state.isFollowByLoggedUser}
         userInfo={this.props.userInfo}
         isLoggingUserHost={this.state.isLoggingUserHost}
         onClickButtonJoin={this.handleClickButtonJoin}
