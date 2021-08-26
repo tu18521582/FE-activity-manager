@@ -138,9 +138,6 @@ const ActivityForm = (props: ActivityFormProps) => {
       name='nest-messages'
       validateMessages={validateMessages}
       onFinish={onFinishSubmit}
-      initialValues={{
-        title: props.dataForm?.title,
-      }}
     >
       <Form.Item name={'title'} rules={[{ required: true }]}>
         <Input placeholder='Title' onChange={onChangeTitle} />
