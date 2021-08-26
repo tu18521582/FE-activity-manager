@@ -7,45 +7,34 @@ import {
   UserOutlined,
   FormOutlined,
 } from '@ant-design/icons';
-import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivityInfo, UserInfo } from 'constants/domain';
 import './activity-detail.scss';
 
 interface ActivityDetailProps {
-  activityProps: ActivityInfo;
-  followByLoggingUser: Array<FollowInfo>;
+  activityIsViewing: ActivityInfo;
   userInfo: UserInfo;
   isLoggingUserHost: boolean;
-  onClickButtonJoinProps: Function;
-  onClickButtonCancelProps: Function;
-  onClickButtonManageProps: Function;
+  idActCurrentFollowByUser: string;
+  onClickButtonJoin: Function;
+  onClickButtonCancel: Function;
+  onClickButtonManage: Function;
 }
 class ActivityDetail extends Component<ActivityDetailProps> {
-  onClickButtonJoin = () => {
-    this.props.onClickButtonJoinProps();
-  };
-
-  onClickButtonCancel = () => {
-    this.props.onClickButtonCancelProps();
-  };
-
-  onClickButtonManage = () => {
-    this.props.onClickButtonManageProps();
-  };
   render() {
     return (
       <div className='activity-detail'>
         <div className='activity-detail__header-info'>
           <div className='activity-detail__top-background'>
             <span className='activity-detail__title'>
-              {this.props.activityProps?.title}
+              {this.props.activityIsViewing?.title}
             </span>
             <p className='activity-detail__date-time'>
-              {this.props.activityProps?.date}
+              {this.props.activityIsViewing?.date}
             </p>
             <p className='activity-detail__creator'>
               Host by{' '}
               <span className='activity-detail__name'>
-                {this.props.activityProps?.creator}
+                {this.props.activityIsViewing?.creator}
               </span>
             </p>
           </div>
@@ -53,21 +42,28 @@ class ActivityDetail extends Component<ActivityDetailProps> {
           <div className='activity-detail__btn-event'>
             {this.props.isLoggingUserHost ? (
               <div className='activity-detail__btn-manage'>
-                <Button type='primary' onClick={this.onClickButtonManage}>
+                <Button
+                  type='primary'
+                  onClick={this.props.onClickButtonManage.bind(this)}
+                >
                   Manage Event
                 </Button>
               </div>
-            ) : this.props.followByLoggingUser.find(
-                (ele) => ele.id_activity_follow === this.props.activityProps.id
-              ) ? (
+            ) : this.props.idActCurrentFollowByUser ? (
               <div className='activity-detail__btn-join'>
-                <Button type='dashed' onClick={this.onClickButtonCancel}>
+                <Button
+                  type='dashed'
+                  onClick={this.props.onClickButtonCancel.bind(this)}
+                >
                   Cancel activity
                 </Button>
               </div>
             ) : (
               <div className='activity-detail__btn-join'>
-                <Button type='primary' onClick={this.onClickButtonJoin}>
+                <Button
+                  type='primary'
+                  onClick={this.props.onClickButtonJoin.bind(this)}
+                >
                   Join attendance
                 </Button>
               </div>
@@ -77,19 +73,19 @@ class ActivityDetail extends Component<ActivityDetailProps> {
         <div className='activity-detail__body-info'>
           <div className='activity-detail__body-info__item'>
             <InfoCircleOutlined className='activity-detail__icon' />
-            <span>{this.props.activityProps.description}</span>
+            <span>{this.props.activityIsViewing.description}</span>
           </div>
           <div className='activity-detail__body-info__item'>
             <CalendarOutlined className='activity-detail__icon' />
             <span>
-              <span>{`${this.props.activityProps.date} at `}</span>
-              <span>{this.props.activityProps.time}</span>
+              <span>{`${this.props.activityIsViewing.date} at `}</span>
+              <span>{this.props.activityIsViewing.time}</span>
             </span>
           </div>
           <div className='activity-detail__body-info__item'>
             <EnvironmentFilled className='activity-detail__icon' />
-            <span>{`${this.props.activityProps.venue}, `}</span>
-            <span>{this.props.activityProps.city}</span>
+            <span>{`${this.props.activityIsViewing.venue}, `}</span>
+            <span>{this.props.activityIsViewing.city}</span>
           </div>
         </div>
         <div className='activity-detail__chat'>

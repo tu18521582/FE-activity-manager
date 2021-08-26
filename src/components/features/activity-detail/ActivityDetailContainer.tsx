@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
+import history from 'helper/history';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
 import ActivityDetail from './ActivityDetail';
-import history from 'helper/history';
 
 interface ActivityDetailContainerState {
   activityIsViewing: ActivityInfo;
-  followByLoggingUser: Array<FollowInfo>;
+  idActCurrentFollowByUser: string;
   isLoggingUserHost: boolean;
 }
 
@@ -30,7 +30,7 @@ const initialState = {
     venue: '',
     city: '',
   },
-  followByLoggingUser: [],
+  idActCurrentFollowByUser: '',
   isLoggingUserHost: false,
 };
 class ActivityDetailContainer extends Component<
@@ -43,48 +43,43 @@ class ActivityDetailContainer extends Component<
   }
 
   idActivityIsViewing = (this.props.match.params as any).id;
-  getAllFollowInfo = () => {
-    activityService.followInfo().then((result) => {
-      let arrayFollowOfLoggingUser = result.followinfos.filter(
-        (element: FollowInfo) => element.id_user === this.props.userInfo.id
-      );
-      this.setState({
-        followByLoggingUser: arrayFollowOfLoggingUser,
+  updateFollowInfo = () => {
+    activityService
+      .getFollowInfoByIdAct(this.idActivityIsViewing)
+      .then((result) => {
+        let followInfoCurrent = result.find(
+          (element: FollowInfo) => element.idUser === this.props.userInfo.id
+        );
+        this.setState({
+          idActCurrentFollowByUser: followInfoCurrent?.id,
+        });
       });
-    });
   };
   componentDidMount = () => {
     activityService
       .getDetailActivity(this.idActivityIsViewing)
       .then((result) => {
-        if (result.idcreator === this.props.userInfo.id) {
-          this.setState({
-            activityIsViewing: result,
-            isLoggingUserHost: true,
-          });
-        }
         this.setState({
           activityIsViewing: result,
+          isLoggingUserHost: result.idcreator === this.props.userInfo.id,
         });
       });
-    this.getAllFollowInfo();
-  };
-  hadleClickButtonJoin = () => {
-    const newFollowInfo = {
-      id: uuidv4(),
-      id_user: this.props.userInfo.id,
-      id_activity_follow: this.state.activityIsViewing.id,
-    };
-    activityService.insertFollowInfo(newFollowInfo);
-    this.getAllFollowInfo();
+    this.updateFollowInfo();
   };
 
-  hadleClickButtonCancle = () => {
-    const idFollowInfoCurrent = this.state.followByLoggingUser.find(
-      (ele) => ele.id_activity_follow === this.state.activityIsViewing.id
-    )?.id as string;
-    activityService.cancelJoinActivity(idFollowInfoCurrent);
-    this.getAllFollowInfo();
+  handleClickButtonJoin = () => {
+    const newFollowInfo = {
+      id: uuidv4(),
+      idUser: this.props.userInfo.id,
+      idActivityFollow: this.state.activityIsViewing.id,
+    };
+    activityService.insertFollowInfo(newFollowInfo);
+    this.updateFollowInfo();
+  };
+
+  handleClickButtonCancel = () => {
+    activityService.cancelJoinActivity(this.state.idActCurrentFollowByUser);
+    this.updateFollowInfo();
   };
 
   handleClickButtonManage = () => {
@@ -93,13 +88,13 @@ class ActivityDetailContainer extends Component<
   render() {
     return (
       <ActivityDetail
-        onClickButtonManageProps={this.handleClickButtonManage}
-        activityProps={this.state.activityIsViewing}
-        followByLoggingUser={this.state.followByLoggingUser}
+        onClickButtonManage={this.handleClickButtonManage}
+        activityIsViewing={this.state.activityIsViewing}
+        idActCurrentFollowByUser={this.state.idActCurrentFollowByUser}
         userInfo={this.props.userInfo}
         isLoggingUserHost={this.state.isLoggingUserHost}
-        onClickButtonJoinProps={this.hadleClickButtonJoin}
-        onClickButtonCancelProps={this.hadleClickButtonCancle}
+        onClickButtonJoin={this.handleClickButtonJoin}
+        onClickButtonCancel={this.handleClickButtonCancel}
       />
     );
   }

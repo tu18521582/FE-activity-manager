@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import cx from 'classnames';
+import moment from 'moment';
 import { RouteComponentProps } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import './form-style.scss';
-import { ActivityInfo } from 'constants/domain';
-import moment from 'moment';
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -118,23 +117,20 @@ const ActivityForm = (props: ActivityFormProps) => {
     props.onSubmitActivityProps(state);
   };
 
-  let initialValuesForm = {} as any;
-  const [, updateState] = React.useState({});
-  const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
     if (props.dataForm.id) {
       form.setFieldsValue({
-        title: props.dataForm?.title,
-        description: props.dataForm?.description,
-        category: props.dataForm?.category,
-        date: moment(props.dataForm?.date, 'YYYY-MM-DD'),
-        time: moment(props.dataForm?.time, 'HH:mm'),
-        city: props.dataForm?.city,
-        venue: props.dataForm?.venue,
+        title: props.dataForm.title,
+        description: props.dataForm.description,
+        category: props.dataForm.category,
+        date: moment(props.dataForm.date, 'YYYY-MM-DD'),
+        time: moment(props.dataForm.time, 'HH:mm'),
+        city: props.dataForm.city,
+        venue: props.dataForm.venue,
       });
     }
     setState(props.dataForm);
-  }, [props.dataForm]);
+  }, [props.dataForm, form]);
   return (
     <Form
       form={form}

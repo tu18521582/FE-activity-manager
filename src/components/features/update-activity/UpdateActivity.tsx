@@ -1,11 +1,10 @@
-import ActivityForm from 'components/common/ActivityForm/ActivityForm';
-import withDashboard from 'components/common/withDashboard';
-import { ActivityInfo } from 'constants/domain';
-import history from 'helper/history';
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { ActivityInfo } from 'constants/domain';
+import history from 'helper/history';
 import { activityService } from 'services';
-import { updateSourceFile } from 'typescript';
+import withDashboard from 'components/common/withDashboard';
+import ActivityForm from 'components/common/ActivityForm/ActivityForm';
 
 interface UpdateActivityState {
   dataForm: ActivityInfo;

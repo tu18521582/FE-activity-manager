@@ -8,6 +8,20 @@ const activityService = {
   updateActivity: (activity: any) =>
     requests.put(`/activities/${activity.id}`, activity),
   followInfo: () => requests.get('/follow'),
+  getFollowInfoByIdAct: async (idActivity: string) => {
+    let listFollowInfo: any = [];
+
+    await activityService.followInfo().then((result) => {
+      listFollowInfo = result.followinfos;
+    });
+
+    let followInfoOfAct = listFollowInfo.filter(
+      (ele: any) => ele.idActivityFollow === idActivity
+    );
+
+    return followInfoOfAct;
+  },
+
   insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
   getActivitySummary: async () => {
     let activitySummary: ActivitySummary[] = [];
@@ -18,6 +32,7 @@ const activityService = {
     await activityService.allActivities().then((result) => {
       activitySummary = result.activities;
     });
+
     await activityService.followInfo().then((result) => {
       listFollowInfo = result.followinfos;
     });
@@ -28,11 +43,10 @@ const activityService = {
 
     listFollowInfo.forEach((followItem: any) => {
       listUserInfo.forEach((user: any) => {
-        if (user.id === followItem.id_user) {
-          const userArray =
-            userInfoMap.get(followItem.id_activity_follow) || [];
+        if (user.id === followItem.idUser) {
+          const userArray = userInfoMap.get(followItem.idActivityFollow) || [];
           userArray.push(user);
-          userInfoMap.set(followItem.id_activity_follow, userArray);
+          userInfoMap.set(followItem.idActivityFollow, userArray);
         }
       });
     });

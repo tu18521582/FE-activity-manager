@@ -76,7 +76,6 @@ class ActivityListContainer extends Component<
     });
   };
 
-  componentDidUpdate = () => {};
   render() {
     return (
       <ActivityList

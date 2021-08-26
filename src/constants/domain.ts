@@ -35,8 +35,8 @@ export interface ActivityInfo {
 
 export interface FollowInfo {
   id: string;
-  id_user: string;
-  id_activity_follow: string;
+  idUser: string;
+  idActivityFollow: string;
 }
 
 export interface ActivitySummary {

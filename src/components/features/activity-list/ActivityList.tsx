@@ -16,7 +16,7 @@ class ActivityList extends Component<ActivityListProps> {
     this.props.onHandleFilterActivities(typeFilter);
   };
 
-  onHadleParentFilterByDate = (date: string) => {
+  onHandleParentFilterByDate = (date: string) => {
     this.props.onHandleFilterByDate(date);
   };
   render() {
@@ -34,7 +34,7 @@ class ActivityList extends Component<ActivityListProps> {
         <div className='activity-container__filter'>
           <ActivityFilter
             onHandleParentFilterActivities={this.onHandleParentFilterActivities}
-            onHadleParentFilterByDate={this.onHadleParentFilterByDate}
+            onHandleParentFilterByDate={this.onHandleParentFilterByDate}
           />
         </div>
       </div>

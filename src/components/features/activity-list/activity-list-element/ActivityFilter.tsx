@@ -5,7 +5,7 @@ import './activity-list.scss';
 
 interface ActivityFilterProps {
   onHandleParentFilterActivities: Function;
-  onHadleParentFilterByDate: Function;
+  onHandleParentFilterByDate: Function;
 }
 class ActivityFilter extends Component<ActivityFilterProps> {
   showAllActivities = () => {
@@ -20,7 +20,7 @@ class ActivityFilter extends Component<ActivityFilterProps> {
     this.props.onHandleParentFilterActivities('host');
   };
   onChangeCalendar = (date: any) => {
-    this.props.onHadleParentFilterByDate(date.format('YYYY-MM-DD').toString());
+    this.props.onHandleParentFilterByDate(date.format('YYYY-MM-DD').toString());
   };
   render() {
     return (
