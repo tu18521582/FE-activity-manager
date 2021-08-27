@@ -13,7 +13,7 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 interface ActivityFormProps extends RouteComponentProps {
-  onSubmitActivityProps: Function;
+  onSubmitActivity: Function;
   dataForm: any;
 }
 
@@ -114,7 +114,7 @@ const ActivityForm = (props: ActivityFormProps) => {
   );
 
   const onFinishSubmit = () => {
-    props.onSubmitActivityProps(state);
+    props.onSubmitActivity(state);
   };
 
   useEffect(() => {

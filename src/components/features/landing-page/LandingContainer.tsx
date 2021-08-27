@@ -22,7 +22,7 @@ const LandingContainer = (props: LandingContainerProps) => {
         handleShowLoginModal={handleShowLoginModal}
         handleShowRegisterModal={handleShowRegisterModal}
         userInfo={props.userInfo}
-        onHandleGoToActivityProps={onHandleGoToActivity}
+        onHandleGoToActivity={onHandleGoToActivity}
       />
     </>
   );

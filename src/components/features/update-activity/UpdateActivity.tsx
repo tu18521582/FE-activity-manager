@@ -59,7 +59,7 @@ class UpdateActivity extends Component<
       <ActivityForm
         {...this.props}
         dataForm={this.state.dataForm}
-        onSubmitActivityProps={this.handleUpdateActivity}
+        onSubmitActivity={this.handleUpdateActivity}
       />
     );
   }

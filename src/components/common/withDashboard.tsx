@@ -7,7 +7,7 @@ import DashboardContainer from 'components/features/dashboard/DashboardContainer
 
 export interface withDashboardProps extends RouteComponentProps {
   userInfo: UserInfo;
-  handleLogoutProps: VoidFunction;
+  handleLogout: VoidFunction;
 }
 const withDashboard = (WrapComponent: any) => {
   class withDashboard extends Component<withDashboardProps> {
@@ -27,7 +27,7 @@ const withDashboard = (WrapComponent: any) => {
   });
 
   const mapDispatchToProps = (dispatch: any) => ({
-    handleLogoutProps: () =>
+    handleLogout: () =>
       dispatch(
         setUserInfo({
           username: '',

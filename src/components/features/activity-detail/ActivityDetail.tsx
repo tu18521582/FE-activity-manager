@@ -15,9 +15,9 @@ interface ActivityDetailProps {
   userInfo: UserInfo;
   isLoggingUserHost: boolean;
   isFollowByLoggedUser: boolean;
-  onClickButtonJoin: Function;
-  onClickButtonCancel: Function;
-  onClickButtonManage: Function;
+  onClickButtonJoin: VoidFunction;
+  onClickButtonCancel: VoidFunction;
+  onClickButtonManage: VoidFunction;
 }
 class ActivityDetail extends Component<ActivityDetailProps> {
   render() {
@@ -42,28 +42,19 @@ class ActivityDetail extends Component<ActivityDetailProps> {
           <div className='activity-detail__btn-event'>
             {this.props.isLoggingUserHost ? (
               <div className='activity-detail__btn-manage'>
-                <Button
-                  type='primary'
-                  onClick={this.props.onClickButtonManage.bind(this)}
-                >
+                <Button type='primary' onClick={this.props.onClickButtonManage}>
                   Manage Event
                 </Button>
               </div>
             ) : this.props.isFollowByLoggedUser ? (
               <div className='activity-detail__btn-join'>
-                <Button
-                  type='dashed'
-                  onClick={this.props.onClickButtonCancel.bind(this)}
-                >
+                <Button type='dashed' onClick={this.props.onClickButtonCancel}>
                   Cancel activity
                 </Button>
               </div>
             ) : (
               <div className='activity-detail__btn-join'>
-                <Button
-                  type='primary'
-                  onClick={this.props.onClickButtonJoin.bind(this)}
-                >
+                <Button type='primary' onClick={this.props.onClickButtonJoin}>
                   Join attendance
                 </Button>
               </div>

@@ -43,7 +43,7 @@ class CreateActivity extends Component<
       <ActivityForm
         {...this.props}
         dataForm={{}}
-        onSubmitActivityProps={this.handleCreateActivity}
+        onSubmitActivity={this.handleCreateActivity}
       />
     );
   }
