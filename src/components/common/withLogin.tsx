@@ -5,7 +5,7 @@ import { UserInfo } from 'constants/domain';
 import { setUserInfo } from '../../redux/actions/login.action';
 export interface withLoginProps extends RouteComponentProps {
   userInfo: UserInfo;
-  handleLogoutProps: VoidFunction;
+  handleLogout: VoidFunction;
 }
 const withLogin = (WrapComponent: any) => {
   class withLogin extends Component<withLoginProps> {
@@ -31,7 +31,7 @@ const withLogin = (WrapComponent: any) => {
   });
 
   const mapDispatchToProps = (dispatch: any) => ({
-    handleLogoutProps: () =>
+    handleLogout: () =>
       dispatch(
         setUserInfo({
           username: '',

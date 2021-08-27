@@ -56,6 +56,40 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/follow', (schema) => {
         return schema.followinfos.all();
       });
+
+      this.post('/follow', (schema, request) => {
+        const newFollowInfo = JSON.parse(request.requestBody);
+        return schema.db.followinfos.insert(newFollowInfo);
+      });
+
+      this.del('/follow/:id', (schema, request) => {
+        let id = request.params.id;
+        schema.followinfos.find(id).destroy();
+      });
+
+      this.get(
+        '/follow/user/:iduser/activity/:idactivity',
+        (schema, request) => {
+          let idUser = request.params.iduser;
+          let idActivity = request.params.idactivity;
+          return schema.followinfos.findBy({
+            idUser: idUser,
+            idActivityFollow: idActivity,
+          });
+        }
+      );
+
+      this.get('/activities/:id', (schema, request) => {
+        let id = request.params.id;
+        return schema.db.activities.find(id);
+      });
+
+      this.put('/activities/:id', (schema, request) => {
+        let newAttrs = JSON.parse(request.requestBody);
+        delete newAttrs['id'];
+        let id = request.params.id;
+        return schema.db.activities.update(id, newAttrs);
+      });
     },
   });
 

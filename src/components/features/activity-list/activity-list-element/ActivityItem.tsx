@@ -6,6 +6,7 @@ import {
   EnvironmentFilled,
 } from '@ant-design/icons';
 import { ActivitySummary, UserInfo } from 'constants/domain';
+import history from 'helper/history';
 import './activity-list.scss';
 
 interface ActivityItemProps {
@@ -13,8 +14,10 @@ interface ActivityItemProps {
   userInfo: UserInfo;
 }
 
-interface ActivityItemState {}
-class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
+class ActivityItem extends Component<ActivityItemProps> {
+  onHandleViewActivity = () => {
+    history.push(`/activities/${this.props.activityItemData.id}`);
+  };
   render() {
     return (
       <div className='activity-item'>
@@ -88,7 +91,11 @@ class ActivityItem extends Component<ActivityItemProps, ActivityItemState> {
             <div className='activity-item__footer__description'>
               {this.props.activityItemData?.description}
             </div>
-            <Button className='activity-item__footer__btn-view' type='primary'>
+            <Button
+              className='activity-item__footer__btn-view'
+              type='primary'
+              onClick={this.onHandleViewActivity}
+            >
               View
             </Button>
           </div>

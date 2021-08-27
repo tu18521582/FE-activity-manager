@@ -5,7 +5,14 @@ import userService from './userService';
 const activityService = {
   allActivities: () => requests.get('/activities'),
   createActivity: (activity: any) => requests.post('/activities', activity),
+  updateActivity: (activity: any) =>
+    requests.put(`/activities/${activity.id}`, activity),
   followInfo: () => requests.get('/follow'),
+  getFollowInfoByAttr: (folloInfoAttr: any) =>
+    requests.get(
+      `/follow/user/${folloInfoAttr.idUser}/activity/${folloInfoAttr.idActivityFollow}`
+    ),
+  insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
   getActivitySummary: async () => {
     let activitySummary: ActivitySummary[] = [];
     let listFollowInfo: any = [];
@@ -15,6 +22,7 @@ const activityService = {
     await activityService.allActivities().then((result) => {
       activitySummary = result.activities;
     });
+
     await activityService.followInfo().then((result) => {
       listFollowInfo = result.followinfos;
     });
@@ -25,10 +33,10 @@ const activityService = {
 
     listFollowInfo.forEach((followItem: any) => {
       listUserInfo.forEach((user: any) => {
-        if (user.id === followItem.id_user) {
-          const userArray = userInfoMap.get(followItem.id_post_follow) || [];
+        if (user.id === followItem.idUser) {
+          const userArray = userInfoMap.get(followItem.idActivityFollow) || [];
           userArray.push(user);
-          userInfoMap.set(followItem.id_post_follow, userArray);
+          userInfoMap.set(followItem.idActivityFollow, userArray);
         }
       });
     });
@@ -40,6 +48,8 @@ const activityService = {
 
     return activitySummary;
   },
+  getDetailActivity: (id: string) => requests.get(`/activities/${id}`),
+  cancelJoinActivity: (id: string) => requests.del(`/follow/${id}`),
 };
 
 export default activityService;

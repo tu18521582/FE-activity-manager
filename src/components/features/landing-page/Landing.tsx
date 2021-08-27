@@ -8,7 +8,7 @@ import './landing-page.scss';
 interface LandingProps {
   handleShowLoginModal: VoidFunction;
   handleShowRegisterModal: VoidFunction;
-  onHandleGoToActivityProps: VoidFunction;
+  onHandleGoToActivity: VoidFunction;
   userInfo: UserInfo;
 }
 
@@ -47,7 +47,7 @@ const Landing = (props: LandingProps) => {
             <p className='landing-page__welcome__text'>{`Welcome back ${props.userInfo.displayname}`}</p>
             <Button
               className='landing-page__welcome__btn-redirect-activity'
-              onClick={props.onHandleGoToActivityProps}
+              onClick={props.onHandleGoToActivity}
             >
               Go to activities!
             </Button>

@@ -57,15 +57,11 @@ export const fakeActivities = [
 
 export const fakeFollowTable = [
   {
-    id_user: '1',
-    id_post_follow: '2',
+    idUser: '1',
+    idActivityFollow: '2',
   },
   {
-    id_user: '1',
-    id_post_follow: '3',
-  },
-  {
-    id_user: '2',
-    id_post_follow: '3',
+    idUser: '2',
+    idActivityFollow: '3',
   },
 ];
