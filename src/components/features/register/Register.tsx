@@ -81,8 +81,6 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   handleRegisterUser = () => {
     try {
       userService.signup(this.state.infoUserRegister).then((response) => {
-        console.log(response);
-
         if (response === null) {
           this.setState({ errorMessage: 'Email already exists' });
           return;
@@ -98,12 +96,6 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   success = () => {
     message.success('Registered successfully', 1);
   };
-
-  componentDidMount() {
-    axios.get('/').then((rs) => {
-      console.log(rs);
-    });
-  }
 
   render() {
     return (
