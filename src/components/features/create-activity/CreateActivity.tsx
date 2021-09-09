@@ -21,7 +21,7 @@ class CreateActivity extends Component<
   handleCreateActivity = (value: ActivityCreationInfo) => {
     const newActivity = {
       ...value,
-      creator: this.props.userInfo.displayname,
+      creator: this.props.userInfo.displayName,
       idcreator: this.props.userInfo.id,
       id: uuidv4(),
     };

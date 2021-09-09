@@ -3,7 +3,7 @@ import { ActionType } from 'constants/domain';
 
 const initialState = {
   username: '',
-  displayname: '',
+  displayName: '',
   email: '',
   id: '',
   password: '',

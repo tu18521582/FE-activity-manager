@@ -44,7 +44,7 @@ const Landing = (props: LandingProps) => {
           </div>
         ) : (
           <div className='landing-page__welcome'>
-            <p className='landing-page__welcome__text'>{`Welcome back ${props.userInfo.displayname}`}</p>
+            <p className='landing-page__welcome__text'>{`Welcome back ${props.userInfo.displayName}`}</p>
             <Button
               className='landing-page__welcome__btn-redirect-activity'
               onClick={props.onHandleGoToActivity}

@@ -6,6 +6,7 @@ import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
 import './register-page.scss';
+import axios from 'axios';
 
 type RegisterProps = {
   isShowRegisterModal: boolean;
@@ -19,8 +20,8 @@ type RegisterState = {
 
 const initialState = {
   infoUserRegister: {
+    displayName: '',
     username: '',
-    displayname: '',
     email: '',
     password: '',
   },
@@ -48,7 +49,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        displayname: value,
+        displayName: value,
       },
     }));
   };
@@ -80,6 +81,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   handleRegisterUser = () => {
     try {
       userService.signup(this.state.infoUserRegister).then((response) => {
+        console.log(response);
+
         if (response === null) {
           this.setState({ errorMessage: 'Email already exists' });
           return;
@@ -87,7 +90,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         this.success();
         this.onCancelModal();
       });
-    } catch (err) {
+    } catch (err: any) {
       this.setState({ errorMessage: err.message });
     }
   };
@@ -95,6 +98,12 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   success = () => {
     message.success('Registered successfully', 1);
   };
+
+  componentDidMount() {
+    axios.get('/').then((rs) => {
+      console.log(rs);
+    });
+  }
 
   render() {
     return (
@@ -132,7 +141,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           className={cx('modal-register__btn-register', {
             disabled:
               !this.state.infoUserRegister.username.length ||
-              !this.state.infoUserRegister.displayname.length ||
+              !this.state.infoUserRegister.displayName.length ||
               !this.state.infoUserRegister.email.length ||
               !this.state.infoUserRegister.password.length,
           })}

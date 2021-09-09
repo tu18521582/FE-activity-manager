@@ -1,6 +1,6 @@
 export interface UserInfo {
   username: string;
-  displayname: string;
+  displayName: string;
   id: string;
   email: string;
   password: string;
@@ -8,7 +8,7 @@ export interface UserInfo {
 
 export interface UserRegisterInfo {
   username: string;
-  displayname: string;
+  displayName: string;
   email: string;
   password: string;
 }

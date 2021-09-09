@@ -86,7 +86,7 @@ class Dashboard extends Component<DashboardProps> {
               <a className='ant-dropdown-link' href='/#'>
                 <Avatar icon={<UserOutlined />} />
                 <span className='dashboard-header__dropdown-area__display-name'>
-                  {this.props.userInfo?.displayname}
+                  {this.props.userInfo?.displayName}
                 </span>
                 <CaretDownOutlined />
               </a>

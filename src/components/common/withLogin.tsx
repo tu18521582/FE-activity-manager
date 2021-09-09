@@ -35,7 +35,7 @@ const withLogin = (WrapComponent: any) => {
       dispatch(
         setUserInfo({
           username: '',
-          displayname: '',
+          displayName: '',
           id: '',
           email: '',
           password: '',
