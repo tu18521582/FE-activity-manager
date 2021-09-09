@@ -6,7 +6,6 @@ import { UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
 import './register-page.scss';
-import axios from 'axios';
 
 type RegisterProps = {
   isShowRegisterModal: boolean;
