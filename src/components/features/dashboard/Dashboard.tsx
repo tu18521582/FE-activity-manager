@@ -10,7 +10,7 @@ import logo from 'assets/images/logo-image.jpg';
 import './dashboard.scss';
 
 interface DashboardProps {
-  handleLogout: VoidFunction;
+  onLogout: VoidFunction;
   onGoToLanding: VoidFunction;
   userInfo: UserInfo;
   onCreateActivity: VoidFunction;
@@ -72,7 +72,7 @@ class Dashboard extends Component<DashboardProps> {
                     <LogoutOutlined />
                     <span
                       className='ant-dropdown-menu-item__text'
-                      onClick={this.props.handleLogout}
+                      onClick={this.props.onLogout}
                     >
                       Logout
                     </span>
