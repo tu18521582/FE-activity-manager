@@ -63,9 +63,9 @@ class Login extends Component<LoginProps, LoginState> {
     try {
       userService
         .login(this.state.account)
-        .then((result) => {
+        .then((response) => {
           //login success
-          this.props.setUserInfo(result.user);
+          this.props.setUserInfo(response);
           this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/activities');
         })
@@ -82,6 +82,7 @@ class Login extends Component<LoginProps, LoginState> {
       this.setState({ errorMessage: err.message });
     }
   };
+
   render() {
     return (
       <Modal
