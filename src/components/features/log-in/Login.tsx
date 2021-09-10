@@ -61,16 +61,23 @@ class Login extends Component<LoginProps, LoginState> {
 
   handleLogin = () => {
     try {
-      userService.login(this.state.account).then((result) => {
-        if (result !== null) {
+      userService
+        .login(this.state.account)
+        .then((result) => {
           //login success
           this.props.setUserInfo(result.user);
           this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/activities');
-        } else {
-          this.setState({ errorMessage: 'Invalid username or password' });
-        }
-      });
+        })
+        .catch((error: any) => {
+          if (error.response?.data.status === 500) {
+            this.setState({ errorMessage: 'Invalid username or password' });
+            return;
+          } else {
+            this.setState({ errorMessage: 'Can not connect to server' });
+            return;
+          }
+        });
     } catch (err: any) {
       this.setState({ errorMessage: err.message });
     }
