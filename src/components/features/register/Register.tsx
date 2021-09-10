@@ -79,14 +79,21 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
   handleRegisterUser = () => {
     try {
-      userService.signup(this.state.infoUserRegister).then((response) => {
-        if (response === null) {
-          this.setState({ errorMessage: 'Email already exists' });
-          return;
-        }
-        this.success();
-        this.onCancelModal();
-      });
+      userService
+        .signup(this.state.infoUserRegister)
+        .then(() => {
+          this.success();
+          this.onCancelModal();
+        })
+        .catch((error: any) => {
+          if (error.response?.data.status === 500) {
+            this.setState({ errorMessage: 'Email already exists' });
+            return;
+          } else {
+            this.setState({ errorMessage: 'Can not connect to server' });
+            return;
+          }
+        });
     } catch (err: any) {
       this.setState({ errorMessage: err.message });
     }
