@@ -87,7 +87,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         })
         .catch((error: any) => {
           if (error.response?.data.status === 500) {
-            this.setState({ errorMessage: 'Email already exists' });
+            this.setState({ errorMessage: 'Email or username already exists' });
             return;
           } else {
             this.setState({ errorMessage: 'Can not connect to server' });
