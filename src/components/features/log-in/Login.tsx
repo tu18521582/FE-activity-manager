@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import { UserInfo } from 'constants/domain';
+import { ErrorCode, UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { userService } from 'services';
 import { showLoginModal } from 'redux/actions/modal.action';
@@ -65,12 +65,12 @@ class Login extends Component<LoginProps, LoginState> {
         .login(this.state.account)
         .then((response) => {
           //login success
-          this.props.setUserInfo(response);
+          this.props.setUserInfo(response.user);
           this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/activities');
         })
         .catch((error: any) => {
-          if (error.response?.data.status === 500) {
+          if (error.response?.data.status === ErrorCode.InternalError) {
             this.setState({ errorMessage: 'Invalid username or password' });
             return;
           } else {
@@ -83,6 +83,9 @@ class Login extends Component<LoginProps, LoginState> {
     }
   };
 
+  componentDidMount() {
+    console.log('did mount:', this.props.userInfo);
+  }
   render() {
     return (
       <Modal

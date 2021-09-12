@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Input, message, Modal } from 'antd';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import { UserRegisterInfo } from 'constants/domain';
+import { ErrorCode, UserRegisterInfo } from 'constants/domain';
 import { userService } from 'services';
 import { showRegisterModal } from 'redux/actions/modal.action';
 import './register-page.scss';
@@ -86,7 +86,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           this.onCancelModal();
         })
         .catch((error: any) => {
-          if (error.response?.data.status === 500) {
+          if (error.response?.data.status === ErrorCode.InternalError) {
             this.setState({ errorMessage: 'Email or username already exists' });
             return;
           } else {

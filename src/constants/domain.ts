@@ -52,3 +52,7 @@ export interface ActivitySummary {
   city: string;
   userList: Array<UserInfo>;
 }
+
+export enum ErrorCode {
+  InternalError = 500,
+}
