@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Input, Modal } from 'antd';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import { ErrorCode, UserInfo } from 'constants/domain';
+import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { userService } from 'services';
 import { showLoginModal } from 'redux/actions/modal.action';
@@ -70,13 +70,7 @@ class Login extends Component<LoginProps, LoginState> {
           history.push('/activities');
         })
         .catch((error: any) => {
-          if (error.response?.data.status === ErrorCode.InternalError) {
-            this.setState({ errorMessage: 'Invalid username or password' });
-            return;
-          } else {
-            this.setState({ errorMessage: 'Can not connect to server' });
-            return;
-          }
+          this.setState({ errorMessage: error.response.data.message });
         });
     } catch (err: any) {
       this.setState({ errorMessage: err.message });
