@@ -1,19 +1,19 @@
 export const fakeUsers = [
   {
     username: 'user01',
-    displayname: 'User 01',
+    displayName: 'User 01',
     email: 'user01@mail.com',
     password: 'Kms@2021',
   },
   {
     username: 'user02',
-    displayname: 'User 02',
+    displayName: 'User 02',
     email: 'user02@mail.com',
     password: 'Kms@2021',
   },
   {
     username: 'user02',
-    displayname: 'User 02',
+    displayName: 'User 02',
     email: 'user03@mail.com',
     password: 'Kms@2021',
   },

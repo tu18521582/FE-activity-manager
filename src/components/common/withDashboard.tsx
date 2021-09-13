@@ -31,7 +31,7 @@ const withDashboard = (WrapComponent: any) => {
       dispatch(
         setUserInfo({
           username: '',
-          displayname: '',
+          displayName: '',
           id: '',
           email: '',
           password: '',

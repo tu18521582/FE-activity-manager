@@ -19,8 +19,8 @@ type RegisterState = {
 
 const initialState = {
   infoUserRegister: {
+    displayName: '',
     username: '',
-    displayname: '',
     email: '',
     password: '',
   },
@@ -48,7 +48,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     this.setState((prevState) => ({
       infoUserRegister: {
         ...prevState.infoUserRegister,
-        displayname: value,
+        displayName: value,
       },
     }));
   };
@@ -79,15 +79,16 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
   handleRegisterUser = () => {
     try {
-      userService.signup(this.state.infoUserRegister).then((response) => {
-        if (response === null) {
-          this.setState({ errorMessage: 'Email already exists' });
-          return;
-        }
-        this.success();
-        this.onCancelModal();
-      });
-    } catch (err) {
+      userService
+        .signup(this.state.infoUserRegister)
+        .then(() => {
+          this.success();
+          this.onCancelModal();
+        })
+        .catch((error: any) => {
+          this.setState({ errorMessage: error.response?.data.message });
+        });
+    } catch (err: any) {
       this.setState({ errorMessage: err.message });
     }
   };
@@ -132,7 +133,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
           className={cx('modal-register__btn-register', {
             disabled:
               !this.state.infoUserRegister.username.length ||
-              !this.state.infoUserRegister.displayname.length ||
+              !this.state.infoUserRegister.displayName.length ||
               !this.state.infoUserRegister.email.length ||
               !this.state.infoUserRegister.password.length,
           })}

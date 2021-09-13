@@ -79,7 +79,7 @@ class ActivityItem extends Component<ActivityItemProps> {
               />
             </Tooltip>
             {this.props.activityItemData?.userList?.map((user) => (
-              <Tooltip title={user.displayname} key={user.id}>
+              <Tooltip title={user.displayName} key={user.id}>
                 <Avatar
                   className='activity-item__followers-info__item'
                   icon={<UserOutlined />}

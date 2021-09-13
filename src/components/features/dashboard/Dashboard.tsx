@@ -10,7 +10,7 @@ import logo from 'assets/images/logo-image.jpg';
 import './dashboard.scss';
 
 interface DashboardProps {
-  handleLogout: VoidFunction;
+  onLogout: VoidFunction;
   onGoToLanding: VoidFunction;
   userInfo: UserInfo;
   onCreateActivity: VoidFunction;
@@ -72,7 +72,7 @@ class Dashboard extends Component<DashboardProps> {
                     <LogoutOutlined />
                     <span
                       className='ant-dropdown-menu-item__text'
-                      onClick={this.props.handleLogout}
+                      onClick={this.props.onLogout}
                     >
                       Logout
                     </span>
@@ -86,7 +86,7 @@ class Dashboard extends Component<DashboardProps> {
               <a className='ant-dropdown-link' href='/#'>
                 <Avatar icon={<UserOutlined />} />
                 <span className='dashboard-header__dropdown-area__display-name'>
-                  {this.props.userInfo?.displayname}
+                  {this.props.userInfo?.displayName}
                 </span>
                 <CaretDownOutlined />
               </a>

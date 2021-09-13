@@ -1,6 +1,6 @@
 export interface UserInfo {
   username: string;
-  displayname: string;
+  displayName: string;
   id: string;
   email: string;
   password: string;
@@ -8,7 +8,7 @@ export interface UserInfo {
 
 export interface UserRegisterInfo {
   username: string;
-  displayname: string;
+  displayName: string;
   email: string;
   password: string;
 }
@@ -51,4 +51,8 @@ export interface ActivitySummary {
   venue: string;
   city: string;
   userList: Array<UserInfo>;
+}
+
+export enum ErrorCode {
+  InternalError = 500,
 }
