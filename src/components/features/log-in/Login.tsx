@@ -83,9 +83,6 @@ class Login extends Component<LoginProps, LoginState> {
     }
   };
 
-  componentDidMount() {
-    console.log('did mount:', this.props.userInfo);
-  }
   render() {
     return (
       <Modal
