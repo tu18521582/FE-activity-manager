@@ -70,7 +70,7 @@ class Login extends Component<LoginProps, LoginState> {
           history.push('/activities');
         })
         .catch((error: any) => {
-          this.setState({ errorMessage: error.response.data.message });
+          this.setState({ errorMessage: error.response?.data.message });
         });
     } catch (err: any) {
       this.setState({ errorMessage: err.message });
