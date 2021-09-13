@@ -65,7 +65,7 @@ class Login extends Component<LoginProps, LoginState> {
         .login(this.state.account)
         .then((response) => {
           //login success
-          this.props.setUserInfo(response.user);
+          this.props.setUserInfo(response);
           this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/activities');
         })
