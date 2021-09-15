@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
 import ActivityDetail from './ActivityDetail';
 
 interface ActivityDetailContainerState {
-  activityIsViewing: ActivityInfo;
+  activityIsViewing: ActivitySummary;
   followInfo: FollowInfo;
   isLoggingUserHost: boolean;
   isFollowByLoggedUser: boolean;
@@ -22,14 +22,20 @@ const initialState = {
   activityIsViewing: {
     id: '',
     title: '',
-    creator: '',
-    idcreator: '',
     description: '',
     category: '',
     date: '',
     time: '',
     venue: '',
     city: '',
+    host: {
+      username: '',
+      displayName: '',
+      id: '',
+      email: '',
+      password: '',
+    },
+    userAttend: [],
   },
   idActCurrentFollowByUser: '',
   isLoggingUserHost: false,

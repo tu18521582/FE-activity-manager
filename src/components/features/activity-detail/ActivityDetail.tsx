@@ -7,11 +7,11 @@ import {
   UserOutlined,
   FormOutlined,
 } from '@ant-design/icons';
-import { ActivityInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, UserInfo } from 'constants/domain';
 import './activity-detail.scss';
 
 interface ActivityDetailProps {
-  activityIsViewing: ActivityInfo;
+  activityIsViewing: ActivitySummary;
   userInfo: UserInfo;
   isLoggingUserHost: boolean;
   isFollowByLoggedUser: boolean;
@@ -34,7 +34,7 @@ class ActivityDetail extends Component<ActivityDetailProps> {
             <p className='activity-detail__creator'>
               Host by{' '}
               <span className='activity-detail__name'>
-                {this.props.activityIsViewing?.creator}
+                {this.props.activityIsViewing?.host.displayName}
               </span>
             </p>
           </div>

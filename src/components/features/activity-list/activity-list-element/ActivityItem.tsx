@@ -34,7 +34,7 @@ class ActivityItem extends Component<ActivityItemProps> {
               <p className='activity-item__info-header__info-host'>
                 Hosted by{' '}
                 <span className='activity-item__info-header__person-host'>
-                  {/* {this.props.activityItemData?.creator} */}
+                  {this.props.activityItemData?.host.displayName}
                 </span>
               </p>
               {this.props.userInfo.id ===
