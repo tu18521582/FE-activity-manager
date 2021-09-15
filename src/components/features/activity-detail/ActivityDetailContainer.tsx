@@ -68,9 +68,14 @@ class ActivityDetailContainer extends Component<
     activityService
       .getDetailActivity(this.idActivityIsViewing)
       .then((result) => {
+        let activity = result;
+        let date = new Date(result.date)
+          .toLocaleDateString()
+          .replaceAll('/', '-');
+        activity.date = date;
         this.setState({
-          activityIsViewing: result,
-          isLoggingUserHost: result.idcreator === this.props.userInfo.id,
+          activityIsViewing: activity,
+          isLoggingUserHost: activity.idcreator === this.props.userInfo.id,
         });
       });
     this.updateFollowInfo();

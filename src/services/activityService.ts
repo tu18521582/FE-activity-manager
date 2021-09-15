@@ -48,7 +48,7 @@ const activityService = {
 
     return activitySummary;
   },
-  getDetailActivity: (id: string) => requests.get(`/activities/${id}`),
+  getDetailActivity: (id: string) => requests.get(`/activity/${id}`),
   cancelJoinActivity: (id: string) => requests.del(`/follow/${id}`),
 };
 

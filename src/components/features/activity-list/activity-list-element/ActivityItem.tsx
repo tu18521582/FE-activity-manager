@@ -37,15 +37,15 @@ class ActivityItem extends Component<ActivityItemProps> {
                   {/* {this.props.activityItemData?.creator} */}
                 </span>
               </p>
-              {/* {this.props.userInfo.id ===
-              this.props.activityItemData?.idcreator ? (
+              {this.props.userInfo.id ===
+              this.props.activityItemData?.host.id ? (
                 <p className='activity-item__info-header__label-host'>
                   You are hosting this activity
                 </p>
               ) : (
                 ''
               )}
-              {this.props.activityItemData.userList?.some(
+              {this.props.activityItemData.userAttend?.some(
                 (user) => user.id === this.props.userInfo.id
               ) ? (
                 <p className='activity-item__info-header__label-joiner'>
@@ -53,7 +53,7 @@ class ActivityItem extends Component<ActivityItemProps> {
                 </p>
               ) : (
                 ''
-              )} */}
+              )}
             </div>
           </div>
           <div className='activity-item__time-place-activity'>
