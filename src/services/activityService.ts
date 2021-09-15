@@ -3,7 +3,7 @@ import { requests } from './api';
 import userService from './userService';
 
 const activityService = {
-  allActivities: () => requests.get('/activities'),
+  getAllActivities: () => requests.get('/activities'),
   createActivity: (activity: any) => requests.post('/activities', activity),
   updateActivity: (activity: any) =>
     requests.put(`/activities/${activity.id}`, activity),
@@ -19,7 +19,7 @@ const activityService = {
     let listUserInfo: any = [];
     let userInfoMap = new Map();
 
-    await activityService.allActivities().then((result) => {
+    await activityService.getAllActivities().then((result) => {
       activitySummary = result.activities;
     });
 

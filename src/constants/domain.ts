@@ -42,15 +42,14 @@ export interface FollowInfo {
 export interface ActivitySummary {
   id: string;
   title: string;
-  creator: string;
-  idcreator: string;
   description: string;
   category: string;
   date: string;
   time: string;
   venue: string;
   city: string;
-  userList: Array<UserInfo>;
+  host: UserInfo;
+  userAttend: Array<UserInfo>;
 }
 
 export enum ErrorCode {

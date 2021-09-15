@@ -34,10 +34,10 @@ class ActivityItem extends Component<ActivityItemProps> {
               <p className='activity-item__info-header__info-host'>
                 Hosted by{' '}
                 <span className='activity-item__info-header__person-host'>
-                  {this.props.activityItemData?.creator}
+                  {/* {this.props.activityItemData?.creator} */}
                 </span>
               </p>
-              {this.props.userInfo.id ===
+              {/* {this.props.userInfo.id ===
               this.props.activityItemData?.idcreator ? (
                 <p className='activity-item__info-header__label-host'>
                   You are hosting this activity
@@ -53,7 +53,7 @@ class ActivityItem extends Component<ActivityItemProps> {
                 </p>
               ) : (
                 ''
-              )}
+              )} */}
             </div>
           </div>
           <div className='activity-item__time-place-activity'>
@@ -72,13 +72,13 @@ class ActivityItem extends Component<ActivityItemProps> {
             </div>
           </div>
           <div className='activity-item__followers-info'>
-            <Tooltip title={this.props.activityItemData?.creator}>
+            <Tooltip title={this.props.activityItemData?.host.displayName}>
               <Avatar
                 className='activity-item__followers-info__item'
                 icon={<UserOutlined />}
               />
             </Tooltip>
-            {this.props.activityItemData?.userList?.map((user) => (
+            {this.props.activityItemData?.userAttend?.map((user) => (
               <Tooltip title={user.displayName} key={user.id}>
                 <Avatar
                   className='activity-item__followers-info__item'
