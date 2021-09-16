@@ -19,7 +19,7 @@ const responseBody = (response: AxiosResponse) => response.data;
 
 export const requests = {
   get: (url: string, config = {}) => axios.get(url, config).then(responseBody),
-  post: (url: string, body: {}, config = {}) =>
+  post: (url: string, body = {}, config = {}) =>
     axios.post(url, body, config).then(responseBody),
   put: (url: string, body: {}, config = {}) =>
     axios.put(url, body, config).then(responseBody),

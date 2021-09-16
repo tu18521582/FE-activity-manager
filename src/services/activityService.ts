@@ -1,4 +1,4 @@
-import { ActivitySummary } from 'constants/domain';
+import { ActivitySummary, FollowInfo } from 'constants/domain';
 import { requests } from './api';
 import userService from './userService';
 
@@ -12,7 +12,16 @@ const activityService = {
     requests.get(
       `/follow/user/${folloInfoAttr.idUser}/activity/${folloInfoAttr.idActivityFollow}`
     ),
-  insertFollowInfo: (followInfo: any) => requests.post('/follow', followInfo),
+  attendActivity: (followInfo: FollowInfo) =>
+    requests.post(
+      `/follow/user/${followInfo.idUser}/activity/${followInfo.idActivityFollow}`,
+      followInfo
+    ),
+  unAttendActivity: (followInfo: FollowInfo) =>
+    requests.post(
+      `/unfollow/user/${followInfo.idUser}/activity/${followInfo.idActivityFollow}`,
+      followInfo
+    ),
   getActivitySummary: async () => {
     let activitySummary: ActivitySummary[] = [];
     let listFollowInfo: any = [];
@@ -49,7 +58,6 @@ const activityService = {
     return activitySummary;
   },
   getDetailActivity: (id: string) => requests.get(`/activity/${id}`),
-  cancelJoinActivity: (id: string) => requests.del(`/follow/${id}`),
 };
 
 export default activityService;

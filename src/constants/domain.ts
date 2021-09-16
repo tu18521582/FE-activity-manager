@@ -34,7 +34,6 @@ export interface ActivityInfo {
 }
 
 export interface FollowInfo {
-  id: string;
   idUser: string;
   idActivityFollow: string;
 }

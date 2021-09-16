@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { ActivitySummary, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
@@ -9,7 +8,6 @@ import ActivityDetail from './ActivityDetail';
 
 interface ActivityDetailContainerState {
   activityIsViewing: ActivitySummary;
-  followInfo: FollowInfo;
   isLoggingUserHost: boolean;
   isFollowByLoggedUser: boolean;
 }
@@ -40,11 +38,6 @@ const initialState = {
   idActCurrentFollowByUser: '',
   isLoggingUserHost: false,
   isFollowByLoggedUser: false,
-  followInfo: {
-    id: '',
-    idUser: '',
-    idActivityFollow: '',
-  },
 };
 class ActivityDetailContainer extends Component<
   ActivityDetailContainerProps,
@@ -56,20 +49,6 @@ class ActivityDetailContainer extends Component<
   }
 
   idActivityIsViewing = (this.props.match.params as any).id;
-  updateFollowInfo = () => {
-    const attrRequest = {
-      idUser: this.props.userInfo.id,
-      idActivityFollow: this.idActivityIsViewing,
-    };
-    activityService.getFollowInfoByAttr(attrRequest).then((result) => {
-      if (result) {
-        this.setState({
-          followInfo: result.followinfo,
-          isFollowByLoggedUser: result !== null,
-        });
-      }
-    });
-  };
   componentDidMount = () => {
     activityService
       .getDetailActivity(this.idActivityIsViewing)
@@ -81,31 +60,34 @@ class ActivityDetailContainer extends Component<
         activity.date = date;
         this.setState({
           activityIsViewing: activity,
-          isLoggingUserHost: activity.idcreator === this.props.userInfo.id,
+          isLoggingUserHost: activity.host.id === this.props.userInfo.id,
+          isFollowByLoggedUser: activity.userAttend.some(
+            (user: UserInfo) => user.id === this.props.userInfo.id
+          ),
         });
       });
-    this.updateFollowInfo();
   };
 
   handleClickButtonJoin = () => {
     const newFollowInfo = {
-      id: uuidv4(),
       idUser: this.props.userInfo.id,
       idActivityFollow: this.state.activityIsViewing.id,
     };
-    activityService.insertFollowInfo(newFollowInfo);
-    this.updateFollowInfo();
+    activityService.attendActivity(newFollowInfo).then(() => {
+      this.setState({
+        isFollowByLoggedUser: true,
+      });
+    });
   };
 
   handleClickButtonCancel = () => {
-    activityService.cancelJoinActivity(this.state.followInfo.id).then(() => {
+    const followInfo = {
+      idUser: this.props.userInfo.id,
+      idActivityFollow: this.state.activityIsViewing.id,
+    };
+    activityService.unAttendActivity(followInfo).then(() => {
       this.setState({
         isFollowByLoggedUser: false,
-        followInfo: {
-          id: '',
-          idUser: '',
-          idActivityFollow: '',
-        },
       });
     });
   };
