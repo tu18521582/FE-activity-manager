@@ -35,7 +35,6 @@ const initialState = {
     },
     userAttend: [],
   },
-  idActCurrentFollowByUser: '',
   isLoggingUserHost: false,
   isFollowByLoggedUser: false,
 };
