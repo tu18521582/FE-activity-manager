@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import history from 'helper/history';
 import { UserInfo } from 'constants/domain';
 import { activityService } from 'services';
@@ -21,9 +20,10 @@ class CreateActivity extends Component<
   handleCreateActivity = (value: ActivityCreationInfo) => {
     const newActivity = {
       ...value,
+      date: new Date(value.date).getTime(),
+      time: value.time.concat(':00'),
       creator: this.props.userInfo.displayName,
       idcreator: this.props.userInfo.id,
-      id: uuidv4(),
     };
     try {
       activityService.createActivity(newActivity).then((result) => {

@@ -46,7 +46,9 @@ class UpdateActivity extends Component<
   };
 
   handleUpdateActivity = (updatedActivity: any) => {
-    activityService.updateActivity(updatedActivity).then((result) => {
+    const { userAttend, host, ...activityToUpdate } = updatedActivity;
+    activityToUpdate.date = new Date(updatedActivity.date).getTime();
+    activityService.updateActivity(activityToUpdate).then((result) => {
       if (result !== null) {
         history.push(`/activities/${updatedActivity.id}`);
       } else {

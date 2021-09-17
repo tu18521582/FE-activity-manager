@@ -27,15 +27,26 @@ class ActivityListContainer extends Component<
     this.state = initialState;
   }
 
+  sortActivityByDate = (activities: ActivitySummary[]) => {
+    let sortedResult = activities.sort(
+      (a, b) => Date.parse(b.date) - Date.parse(a.date)
+    );
+    return sortedResult;
+  };
+
   componentDidMount() {
     activityService.getAllActivities().then((result) => {
-      let allActivitiies = result.map((ele: ActivitySummary) => {
-        let date = new Date(ele.date).toLocaleDateString().replaceAll('/', '-');
-        return {
-          ...ele,
-          date: date,
-        };
-      });
+      let allActivitiies = this.sortActivityByDate(
+        result.map((ele: ActivitySummary) => {
+          let date = new Date(ele.date)
+            .toLocaleDateString()
+            .replaceAll('/', '-');
+          return {
+            ...ele,
+            date: date,
+          };
+        })
+      );
       this.totalActivities = allActivitiies;
       this.setState({
         activitySummary: allActivitiies,
