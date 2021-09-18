@@ -52,15 +52,10 @@ class ActivityDetailContainer extends Component<
     activityService
       .getDetailActivity(this.idActivityIsViewing)
       .then((result) => {
-        let activity = result;
-        let date = new Date(result.date)
-          .toLocaleDateString()
-          .replaceAll('/', '-');
-        activity.date = date;
         this.setState({
-          activityIsViewing: activity,
-          isLoggingUserHost: activity.host.id === this.props.userInfo.id,
-          isFollowByLoggedUser: activity.userAttend.some(
+          activityIsViewing: result,
+          isLoggingUserHost: result.host.id === this.props.userInfo.id,
+          isFollowByLoggedUser: result.userAttend.some(
             (user: UserInfo) => user.id === this.props.userInfo.id
           ),
         });

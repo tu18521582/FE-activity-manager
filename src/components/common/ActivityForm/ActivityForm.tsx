@@ -118,13 +118,12 @@ const ActivityForm = (props: ActivityFormProps) => {
   };
 
   useEffect(() => {
-    let date = new Date(props.dataForm.date).toLocaleDateString('fr-CA');
     if (props.dataForm.id) {
       form.setFieldsValue({
         title: props.dataForm.title,
         description: props.dataForm.description,
         category: props.dataForm.category,
-        date: moment(date, 'YYYY-MM-DD'),
+        date: moment(props.dataForm.date, 'YYYY-MM-DD'),
         time: moment(props.dataForm.time, 'HH:mm:ss'),
         city: props.dataForm.city,
         venue: props.dataForm.venue,

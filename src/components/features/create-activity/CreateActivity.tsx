@@ -20,9 +20,7 @@ class CreateActivity extends Component<
   handleCreateActivity = (value: ActivityCreationInfo) => {
     const newActivity = {
       ...value,
-      date: new Date(value.date).getTime(),
       time: value.time.concat(':00'),
-      creator: this.props.userInfo.displayName,
       idcreator: this.props.userInfo.id,
     };
     try {

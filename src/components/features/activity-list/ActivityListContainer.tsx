@@ -36,17 +36,7 @@ class ActivityListContainer extends Component<
 
   componentDidMount() {
     activityService.getAllActivities().then((result) => {
-      let allActivitiies = this.sortActivityByDate(
-        result.map((ele: ActivitySummary) => {
-          let date = new Date(ele.date)
-            .toLocaleDateString()
-            .replaceAll('/', '-');
-          return {
-            ...ele,
-            date: date,
-          };
-        })
-      );
+      let allActivitiies = this.sortActivityByDate(result);
       this.totalActivities = allActivitiies;
       this.setState({
         activitySummary: allActivitiies,
