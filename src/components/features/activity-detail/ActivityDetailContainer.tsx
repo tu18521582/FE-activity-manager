@@ -55,7 +55,7 @@ class ActivityDetailContainer extends Component<
         this.setState({
           activityIsViewing: result,
           isLoggingUserHost: result.host.id === this.props.userInfo.id,
-          isFollowByLoggedUser: result.userAttend.some(
+          isFollowByLoggedUser: result.userAttend?.some(
             (user: UserInfo) => user.id === this.props.userInfo.id
           ),
         });
