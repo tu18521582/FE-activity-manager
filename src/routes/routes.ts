@@ -33,6 +33,12 @@ const Routes = [
       () => import('components/features/update-activity/UpdateActivity')
     ),
   },
+  {
+    path: routePath.user.profile,
+    component: lazy(
+      () => import('components/features/profile-user/ProfileContainer')
+    ),
+  },
 ];
 
 export default Routes;

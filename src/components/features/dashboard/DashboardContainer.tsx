@@ -16,6 +16,10 @@ class DashboardContainer extends Component<DashboardContainerProps> {
   handleGoToActivities = () => {
     this.props.history.push('/activities');
   };
+
+  handleGoToProfile = () => {
+    this.props.history.push(`/profile/${this.props.userInfo.id}`);
+  };
   render() {
     return (
       <Dashboard
@@ -24,6 +28,7 @@ class DashboardContainer extends Component<DashboardContainerProps> {
         onGoToLanding={this.handleGoToLanding}
         onCreateActivity={this.handleCreateActivity}
         onGoToActivities={this.handleGoToActivities}
+        onGoToProfile={this.handleGoToProfile}
       >
         {this.props.children}
       </Dashboard>

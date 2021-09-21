@@ -15,6 +15,7 @@ interface DashboardProps {
   userInfo: UserInfo;
   onCreateActivity: VoidFunction;
   onGoToActivities: VoidFunction;
+  onGoToProfile: VoidFunction;
 }
 
 class Dashboard extends Component<DashboardProps> {
@@ -63,7 +64,10 @@ class Dashboard extends Component<DashboardProps> {
                 <Menu>
                   <Menu.Item key='0'>
                     <UserOutlined />
-                    <span className='ant-dropdown-menu-item__text'>
+                    <span
+                      className='ant-dropdown-menu-item__text'
+                      onClick={this.props.onGoToProfile}
+                    >
                       My profile
                     </span>
                   </Menu.Item>

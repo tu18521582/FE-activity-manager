@@ -1,0 +1,27 @@
+.profile-page {
+  background-color: white;
+  &__quickview-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__avatar {
+    font-size: 50px;
+    padding: 20px;
+  }
+  &__username {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+  .ant-avatar.ant-avatar-icon {
+    width: 100px;
+    height: 100px;
+  }
+  &__quantity-acitvity {
+    display: flex;
+    &__item {
+      margin: 0 50px;
+      font-size: 20px;
+    }
+  }
+}
