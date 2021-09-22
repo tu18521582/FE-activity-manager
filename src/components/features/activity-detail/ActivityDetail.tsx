@@ -40,7 +40,7 @@ class ActivityDetail extends Component<ActivityDetailProps> {
           </div>
 
           <div className='activity-detail__btn-event'>
-            {this.props.activityIsViewing.host.id === this.props.userInfo.id ? (
+            {this.props.isLoggingUserHost ? (
               <div className='activity-detail__btn-manage'>
                 <Button type='primary' onClick={this.props.onClickButtonManage}>
                   Manage Event
