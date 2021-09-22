@@ -33,8 +33,6 @@ const initialState = {
     },
     userAttend: [],
   },
-  isLoggingUserHost: false,
-  isFollowByLoggedUser: false,
 };
 class ActivityDetailContainer extends Component<
   ActivityDetailContainerProps,
