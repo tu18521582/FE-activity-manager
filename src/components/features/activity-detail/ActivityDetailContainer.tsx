@@ -44,6 +44,7 @@ class ActivityDetailContainer extends Component<
   }
 
   idActivityIsViewing = (this.props.match.params as any).id;
+
   componentDidMount = () => {
     window.scrollTo(0, 0);
     activityService
@@ -72,7 +73,7 @@ class ActivityDetailContainer extends Component<
     };
     activityService.attendActivity(newFollowInfo).then(() => {
       const userInfoJoinActivity = this.props.userInfo;
-      let activityIsViewingAfterJoin = this.state.activityIsViewing;
+      let activityIsViewingAfterJoin = { ...this.state.activityIsViewing };
       if (!activityIsViewingAfterJoin.userAttend) {
         activityIsViewingAfterJoin.userAttend = [];
       }
@@ -93,7 +94,7 @@ class ActivityDetailContainer extends Component<
         this.state.activityIsViewing.userAttend?.filter(
           (user: UserInfo) => user.id !== followInfo.idUser
         );
-      let activityIsViewingAfterCancel = this.state.activityIsViewing;
+      let activityIsViewingAfterCancel = { ...this.state.activityIsViewing };
       activityIsViewingAfterCancel.userAttend = usersAttendAfterCancel;
       this.setState({
         activityIsViewing: activityIsViewingAfterCancel,
