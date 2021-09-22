@@ -1,8 +1,12 @@
 .profile-page {
   background-color: white;
+  margin-top: 50px;
   &__quickview-section {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 150px;
+    padding-left: 40px;
   }
   &__avatar {
     font-size: 50px;
@@ -17,11 +21,13 @@
     width: 100px;
     height: 100px;
   }
-  &__quantity-acitvity {
+  &__quantity-activity {
     display: flex;
+    justify-content: space-between;
     &__item {
-      margin: 0 50px;
+      margin: 0 40px;
       font-size: 20px;
+      text-align: center;
     }
   }
 }

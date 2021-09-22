@@ -6,6 +6,8 @@ const userService = {
     return requests.post('/user', user);
   },
   getAllUsers: () => requests.get('/users'),
+  getQuantityAcctivityHost: (userid: any) =>
+    requests.get(`activityhost/${userid}`),
 };
 
 export default userService;
