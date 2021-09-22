@@ -113,9 +113,9 @@ const ActivityForm = (props: ActivityFormProps) => {
     []
   );
 
-  const onFinishSubmit = () => {
+  const onFinishSubmit = useCallback(() => {
     props.onSubmitActivity(state);
-  };
+  }, [props, state]);
 
   useEffect(() => {
     if (props.dataForm.id) {
