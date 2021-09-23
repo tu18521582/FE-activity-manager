@@ -23,7 +23,6 @@ export interface ActionType {
 export interface ActivityInfo {
   id: string;
   title: string;
-  creator: string;
   idcreator: string;
   description: string;
   category: string;

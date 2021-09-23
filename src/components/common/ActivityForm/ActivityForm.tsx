@@ -113,9 +113,9 @@ const ActivityForm = (props: ActivityFormProps) => {
     []
   );
 
-  const onFinishSubmit = () => {
+  const onFinishSubmit = useCallback(() => {
     props.onSubmitActivity(state);
-  };
+  }, [props, state]);
 
   useEffect(() => {
     if (props.dataForm.id) {
@@ -124,7 +124,7 @@ const ActivityForm = (props: ActivityFormProps) => {
         description: props.dataForm.description,
         category: props.dataForm.category,
         date: moment(props.dataForm.date, 'YYYY-MM-DD'),
-        time: moment(props.dataForm.time, 'HH:mm'),
+        time: moment(props.dataForm.time, 'HH:mm:ss'),
         city: props.dataForm.city,
         venue: props.dataForm.venue,
       });
