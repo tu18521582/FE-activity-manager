@@ -27,14 +27,19 @@ class ActivityListContainer extends Component<
     this.state = initialState;
   }
 
+  sortActivityByDate = (activities: ActivitySummary[]) => {
+    let sortedResult = activities.sort(
+      (a, b) => Date.parse(b.date) - Date.parse(a.date)
+    );
+    return sortedResult;
+  };
+
   componentDidMount() {
-    activityService.getActivitySummary().then((result) => {
-      let sortedResult = result.sort(
-        (a, b) => Date.parse(a.date) - Date.parse(b.date)
-      );
-      this.totalActivities = sortedResult;
+    activityService.getAllActivities().then((result) => {
+      let allActivitiies = this.sortActivityByDate(result);
+      this.totalActivities = allActivitiies;
       this.setState({
-        activitySummary: sortedResult,
+        activitySummary: allActivitiies,
       });
     });
   }
@@ -43,7 +48,7 @@ class ActivityListContainer extends Component<
     //on click host
     if (typeFilter === 'host') {
       let filterActivitiesArray = this.totalActivities.filter(
-        (activity) => activity.idcreator === this.props.userInfo.id
+        (activity) => activity.host.id === this.props.userInfo.id
       );
       this.setState({
         activitySummary: filterActivitiesArray,
@@ -52,9 +57,8 @@ class ActivityListContainer extends Component<
     //on click going
     else if (typeFilter === 'going') {
       let filterActivitiesArray = this.totalActivities.filter((ele) =>
-        ele.userList?.some((user) => user.id === this.props.userInfo.id)
+        ele.userAttend?.some((user) => user.id === this.props.userInfo.id)
       );
-
       this.setState({
         activitySummary: filterActivitiesArray,
       });

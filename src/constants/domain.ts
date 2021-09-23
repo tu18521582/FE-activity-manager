@@ -23,7 +23,6 @@ export interface ActionType {
 export interface ActivityInfo {
   id: string;
   title: string;
-  creator: string;
   idcreator: string;
   description: string;
   category: string;
@@ -34,7 +33,6 @@ export interface ActivityInfo {
 }
 
 export interface FollowInfo {
-  id: string;
   idUser: string;
   idActivityFollow: string;
 }
@@ -42,15 +40,14 @@ export interface FollowInfo {
 export interface ActivitySummary {
   id: string;
   title: string;
-  creator: string;
-  idcreator: string;
   description: string;
   category: string;
   date: string;
   time: string;
   venue: string;
   city: string;
-  userList: Array<UserInfo>;
+  host: UserInfo;
+  userAttend: Array<UserInfo>;
 }
 
 export enum ErrorCode {

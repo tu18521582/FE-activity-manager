@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { ActivityInfo, FollowInfo, UserInfo } from 'constants/domain';
+import { ActivitySummary, UserInfo } from 'constants/domain';
 import history from 'helper/history';
 import { activityService } from 'services';
 import withDashboard from 'components/common/withDashboard';
 import ActivityDetail from './ActivityDetail';
 
 interface ActivityDetailContainerState {
-  activityIsViewing: ActivityInfo;
-  followInfo: FollowInfo;
-  isLoggingUserHost: boolean;
-  isFollowByLoggedUser: boolean;
+  activityIsViewing: ActivitySummary;
 }
 
 interface ActivityDetailContainerProps extends RouteComponentProps {
@@ -22,22 +18,20 @@ const initialState = {
   activityIsViewing: {
     id: '',
     title: '',
-    creator: '',
-    idcreator: '',
     description: '',
     category: '',
     date: '',
     time: '',
     venue: '',
     city: '',
-  },
-  idActCurrentFollowByUser: '',
-  isLoggingUserHost: false,
-  isFollowByLoggedUser: false,
-  followInfo: {
-    id: '',
-    idUser: '',
-    idActivityFollow: '',
+    host: {
+      username: '',
+      displayName: '',
+      id: '',
+      email: '',
+      password: '',
+    },
+    userAttend: [],
   },
 };
 class ActivityDetailContainer extends Component<
@@ -50,51 +44,60 @@ class ActivityDetailContainer extends Component<
   }
 
   idActivityIsViewing = (this.props.match.params as any).id;
-  updateFollowInfo = () => {
-    const attrRequest = {
-      idUser: this.props.userInfo.id,
-      idActivityFollow: this.idActivityIsViewing,
-    };
-    activityService.getFollowInfoByAttr(attrRequest).then((result) => {
-      if (result) {
-        this.setState({
-          followInfo: result.followinfo,
-          isFollowByLoggedUser: result !== null,
-        });
-      }
-    });
-  };
+
   componentDidMount = () => {
+    window.scrollTo(0, 0);
     activityService
       .getDetailActivity(this.idActivityIsViewing)
       .then((result) => {
         this.setState({
           activityIsViewing: result,
-          isLoggingUserHost: result.idcreator === this.props.userInfo.id,
         });
       });
-    this.updateFollowInfo();
+  };
+
+  checkIsFollowByLoggedUser = () => {
+    return this.state.activityIsViewing.userAttend?.some(
+      (user: UserInfo) => user.id === this.props.userInfo.id
+    );
+  };
+
+  checkIsLoggingUserHost = () => {
+    return this.state.activityIsViewing.host.id === this.props.userInfo.id;
   };
 
   handleClickButtonJoin = () => {
     const newFollowInfo = {
-      id: uuidv4(),
       idUser: this.props.userInfo.id,
       idActivityFollow: this.state.activityIsViewing.id,
     };
-    activityService.insertFollowInfo(newFollowInfo);
-    this.updateFollowInfo();
+    activityService.attendActivity(newFollowInfo).then(() => {
+      const userInfoJoinActivity = this.props.userInfo;
+      let activityIsViewingAfterJoin = { ...this.state.activityIsViewing };
+      if (!activityIsViewingAfterJoin.userAttend) {
+        activityIsViewingAfterJoin.userAttend = [];
+      }
+      activityIsViewingAfterJoin.userAttend?.push(userInfoJoinActivity);
+      this.setState({
+        activityIsViewing: activityIsViewingAfterJoin,
+      });
+    });
   };
 
   handleClickButtonCancel = () => {
-    activityService.cancelJoinActivity(this.state.followInfo.id).then(() => {
+    const followInfo = {
+      idUser: this.props.userInfo.id,
+      idActivityFollow: this.state.activityIsViewing.id,
+    };
+    activityService.unAttendActivity(followInfo).then(() => {
+      const usersAttendAfterCancel =
+        this.state.activityIsViewing.userAttend?.filter(
+          (user: UserInfo) => user.id !== followInfo.idUser
+        );
+      let activityIsViewingAfterCancel = { ...this.state.activityIsViewing };
+      activityIsViewingAfterCancel.userAttend = usersAttendAfterCancel;
       this.setState({
-        isFollowByLoggedUser: false,
-        followInfo: {
-          id: '',
-          idUser: '',
-          idActivityFollow: '',
-        },
+        activityIsViewing: activityIsViewingAfterCancel,
       });
     });
   };
@@ -107,9 +110,9 @@ class ActivityDetailContainer extends Component<
       <ActivityDetail
         onClickButtonManage={this.handleClickButtonManage}
         activityIsViewing={this.state.activityIsViewing}
-        isFollowByLoggedUser={this.state.isFollowByLoggedUser}
+        isFollowByLoggedUser={this.checkIsFollowByLoggedUser()}
         userInfo={this.props.userInfo}
-        isLoggingUserHost={this.state.isLoggingUserHost}
+        isLoggingUserHost={this.checkIsLoggingUserHost()}
         onClickButtonJoin={this.handleClickButtonJoin}
         onClickButtonCancel={this.handleClickButtonCancel}
       />
