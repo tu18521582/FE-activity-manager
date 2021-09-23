@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import { UserInfo } from 'constants/domain';
 import history from 'helper/history';
@@ -13,9 +13,9 @@ interface LandingContainerProps {
 
 const LandingContainer = (props: LandingContainerProps) => {
   const { handleShowLoginModal, handleShowRegisterModal } = props;
-  const onHandleGoToActivity = () => {
+  const onHandleGoToActivity = useCallback(() => {
     history.push('/activities');
-  };
+  }, []);
   return (
     <>
       <Landing
