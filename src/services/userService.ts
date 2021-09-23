@@ -6,8 +6,9 @@ const userService = {
     return requests.post('/user', user);
   },
   getAllUsers: () => requests.get('/users'),
-  getQuantityAcctivityHost: (userid: any) =>
-    requests.get(`activityhost/${userid}`),
+  getActivitiesHost: (userid: any) => requests.get(`activityhost/${userid}`),
+  getActivitiesAttend: (userid: any) =>
+    requests.get(`activityattend/${userid}`),
 };
 
 export default userService;

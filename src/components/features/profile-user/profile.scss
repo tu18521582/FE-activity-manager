@@ -1,7 +1,7 @@
 .profile-page {
-  background-color: white;
   margin-top: 50px;
   &__quickview-section {
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,6 +28,15 @@
       margin: 0 40px;
       font-size: 20px;
       text-align: center;
+      margin-top: 15px;
     }
+  }
+  &__number-activity {
+    margin: 0;
+  }
+  &__information-tabs {
+    background-color: white;
+    margin-top: 30px;
+    padding: 40px;
   }
 }
