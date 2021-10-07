@@ -67,11 +67,7 @@ class ActivityDetailContainer extends Component<
   };
 
   handleClickButtonJoin = () => {
-    const newFollowInfo = {
-      idUser: this.props.userInfo.id,
-      idActivityFollow: this.state.activityIsViewing.id,
-    };
-    activityService.attendActivity(newFollowInfo).then(() => {
+    activityService.attendActivity(this.state.activityIsViewing.id).then(() => {
       const userInfoJoinActivity = this.props.userInfo;
       let activityIsViewingAfterJoin = { ...this.state.activityIsViewing };
       if (!activityIsViewingAfterJoin.userAttend) {
@@ -85,21 +81,19 @@ class ActivityDetailContainer extends Component<
   };
 
   handleClickButtonCancel = () => {
-    const followInfo = {
-      idUser: this.props.userInfo.id,
-      idActivityFollow: this.state.activityIsViewing.id,
-    };
-    activityService.unAttendActivity(followInfo).then(() => {
-      const usersAttendAfterCancel =
-        this.state.activityIsViewing.userAttend?.filter(
-          (user: UserInfo) => user.id !== followInfo.idUser
-        );
-      let activityIsViewingAfterCancel = { ...this.state.activityIsViewing };
-      activityIsViewingAfterCancel.userAttend = usersAttendAfterCancel;
-      this.setState({
-        activityIsViewing: activityIsViewingAfterCancel,
+    activityService
+      .unAttendActivity(this.state.activityIsViewing.id)
+      .then(() => {
+        const usersAttendAfterCancel =
+          this.state.activityIsViewing.userAttend?.filter(
+            (user: UserInfo) => user.id !== this.props.userInfo.id
+          );
+        let activityIsViewingAfterCancel = { ...this.state.activityIsViewing };
+        activityIsViewingAfterCancel.userAttend = usersAttendAfterCancel;
+        this.setState({
+          activityIsViewing: activityIsViewingAfterCancel,
+        });
       });
-    });
   };
 
   handleClickButtonManage = () => {

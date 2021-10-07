@@ -65,13 +65,22 @@ class Login extends Component<LoginProps, LoginState> {
         .login(this.state.account)
         .then((response) => {
           //login success
-          this.props.setUserInfo(response);
+          localStorage.setItem('access_token', response.access_token);
           this.setState(initialState, () => this.props.closeLoginModal());
           history.push('/activities');
         })
         .catch((error: any) => {
           this.setState({ errorMessage: error.response?.data.message });
         });
+    } catch (err: any) {
+      this.setState({ errorMessage: err.message });
+    }
+
+    //get information of user
+    try {
+      userService.getUserInformation().then((result) => {
+        this.props.setUserInfo(result);
+      });
     } catch (err: any) {
       this.setState({ errorMessage: err.message });
     }

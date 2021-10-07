@@ -10,13 +10,13 @@ export interface withLoginProps extends RouteComponentProps {
 const withLogin = (WrapComponent: any) => {
   class withLogin extends Component<withLoginProps> {
     componentDidMount() {
-      if (this.props.userInfo.email === '') {
+      if (this.props.userInfo.id === '') {
         this.props.history.push('/');
       }
     }
 
     componentDidUpdate() {
-      if (this.props.userInfo.email === '') {
+      if (this.props.userInfo.id === '') {
         this.props.history.push('/');
       }
     }

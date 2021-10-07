@@ -1,4 +1,3 @@
-import { FollowInfo } from 'constants/domain';
 import { requests } from './api';
 
 const activityService = {
@@ -8,20 +7,10 @@ const activityService = {
   updateActivity: (activity: any) =>
     requests.put(`/activity/${activity.id}`, activity),
   followInfo: () => requests.get('/follow'),
-  getFollowInfoByAttr: (folloInfoAttr: any) =>
-    requests.get(
-      `/follow/user/${folloInfoAttr.idUser}/activity/${folloInfoAttr.idActivityFollow}`
-    ),
-  attendActivity: (followInfo: FollowInfo) =>
-    requests.post(
-      `/follow/user/${followInfo.idUser}/activity/${followInfo.idActivityFollow}`,
-      followInfo
-    ),
-  unAttendActivity: (followInfo: FollowInfo) =>
-    requests.post(
-      `/unfollow/user/${followInfo.idUser}/activity/${followInfo.idActivityFollow}`,
-      followInfo
-    ),
+  attendActivity: (idActivityFollow: string) =>
+    requests.post(`/follow/activity/${idActivityFollow}`),
+  unAttendActivity: (idActivityFollow: string) =>
+    requests.post(`/unfollow/activity/${idActivityFollow}`),
   getDetailActivity: (id: string) => requests.get(`/activity/${id}`),
 };
 

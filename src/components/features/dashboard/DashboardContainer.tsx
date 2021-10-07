@@ -16,6 +16,7 @@ class DashboardContainer extends Component<DashboardContainerProps> {
   handleGoToActivities = () => {
     this.props.history.push('/activities');
   };
+
   render() {
     return (
       <Dashboard
